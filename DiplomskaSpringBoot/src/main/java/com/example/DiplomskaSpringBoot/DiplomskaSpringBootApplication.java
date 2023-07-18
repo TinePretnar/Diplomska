@@ -9,5 +9,4 @@ public class DiplomskaSpringBootApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DiplomskaSpringBootApplication.class, args);
 	}
-
 }
