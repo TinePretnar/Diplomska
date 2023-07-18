@@ -16,7 +16,6 @@ public class OdlagaliscaService {
     }
 
     public List<Odlagalisca> getOdlagalisca() {
-        return odlagaliscaRepository.VsaOdlagalisca();
+        return odlagaliscaRepository.findAll();
     }
-
 }

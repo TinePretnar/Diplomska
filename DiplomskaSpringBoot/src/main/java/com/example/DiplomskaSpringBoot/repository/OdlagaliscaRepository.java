@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface OdlagaliscaRepository extends JpaRepository<Odlagalisca, Long> {
-    @Query(value = "SELECT * FROM registerdivjihodlagalisc", nativeQuery = true)
-    List<Odlagalisca> VsaOdlagalisca();
+    // No need for the custom query
 }

@@ -21,7 +21,7 @@ public class DiplomskaController {
     }
 
     @GetMapping
-    public List<Odlagalisca> getOdlagaliscaByNaziv() {
+    public List<Odlagalisca> getOdlagalisca() {
         return odlagaliscaService.getOdlagalisca();
     }
 
