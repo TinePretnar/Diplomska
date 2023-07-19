@@ -94,7 +94,7 @@ public class Odlagalisca {
                        String komunalniOdpadki, String kosovniOdpadki, String pnevmatike, String motornaVozila,
                        String salonitnePlosce, String nevarniOdpadki, boolean nevarnaNeznanaTekocina, String opisNevarnihOdpadkov,
                        boolean odpadkiZakopani, String opombe, String obcina, String datumVnosaVRegister,
-                       String datumZadnjeSpremembe, String ocenaPomembnosti, String statRegija, String geometry) {
+                       String datumZadnjeSpremembe, String ocenaPomembnosti, String geometry) {
         this.id = id;
         this.ocisceno = ocisceno;
         this.naziv = naziv;
@@ -119,7 +119,6 @@ public class Odlagalisca {
         this.datumVnosaVRegister = datumVnosaVRegister;
         this.datumZadnjeSpremembe = datumZadnjeSpremembe;
         this.ocenaPomembnosti = ocenaPomembnosti;
-        this.statRegija = statRegija;
         this.geometry = geometry;
     }
 
@@ -314,14 +313,6 @@ public class Odlagalisca {
 
     public void setOcenaPomembnosti(String ocenaPomembnosti) {
         this.ocenaPomembnosti = ocenaPomembnosti;
-    }
-
-    public String getStatRegija() {
-        return statRegija;
-    }
-
-    public void setStatRegija(String statRegija) {
-        this.statRegija = statRegija;
     }
 
     public String getGeometry() {
