@@ -11,15 +11,30 @@ declare const google: any;
 export class MapComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) mapContainer: any;
   map: any;
-  apiKey = 'YAIzaSyDneQmiGalDt-h8nrJEyGNqX7FBNyPxSpc';
+  markers: any[] = []; // Array to store the markers
+  apiKey = 'AIzaSyDneQmiGalDt-h8nrJEyGNqX7FBNyPxSpc';
+  showOciscenoTrue = true;
+  showOciscenoFalse = true;
+  showNevarniOdpadki = true;
+  odlagaliscaList: any[] = []; // Array to store the fetched data
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    // Fetch the data and store it in the odlagaliscaList variable
+    this.dataService.getOdlagalisca().subscribe(
+      data => {
+        console.log(data); // Print the received data in the browser console
+        this.odlagaliscaList = data;
+        this.displayOdlagalisca(this.odlagaliscaList); // Call the function to display odlagalisca on the map
+      },
+      error => {
+        console.log(error); // Handle error if any
+      }
+    );
   }
 
   ngAfterViewInit() {
-    this.fetchOdlagalisca();
     this.loadMap();
   }
 
@@ -37,11 +52,95 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.dataService.getOdlagalisca().subscribe(
       data => {
         console.log(data); // Print the received data in the browser console
-        // Store the data in a variable if needed
+        this.displayOdlagalisca(data); // Call the function to display odlagalisca on the map
       },
       error => {
         console.log(error); // Handle error if any
       }
     );
   }
+
+  displayOdlagalisca(odlagaliscaList: any[]): void {
+    this.markers.forEach(marker => marker.setMap(null));
+    this.markers = [];
+
+    for (const odlagalisce of odlagaliscaList) {
+      const geometryString = odlagalisce.geometry;
+      const coordinates = this.parseGeometryString(geometryString);
+      const ocisceno = odlagalisce.ocisceno;
+
+      if ((ocisceno && this.showOciscenoTrue) || (!ocisceno && this.showOciscenoFalse)) {
+        const marker = this.addMarker(coordinates, ocisceno);
+        this.markers.push(marker);
+      }
+    }
+  }
+
+  parseGeometryString(geometryString: string): { lat: number; lng: number } {
+    const regex = /MULTIPOINT \(\(([\d.]+) ([\d.]+)\)\)/;
+    const matches = geometryString.match(regex);
+    if (matches && matches.length === 3) {
+      return { lat: parseFloat(matches[2]), lng: parseFloat(matches[1]) };
+    }
+    return { lat: 0, lng: 0 }; // Default coordinates if parsing fails
+  }
+
+  addMarker(coordinates: { lat: number; lng: number }, ocisceno: boolean): any {
+    if (ocisceno) {
+      // Use the custom icon for ocisceno == true
+      const iconUrl = 'assets/tree-icon.jpg';
+      const iconSize = new google.maps.Size(32, 32); // Set the desired size of the icon image
+
+      return new google.maps.Marker({
+        position: coordinates,
+        map: this.map,
+        icon: {
+          url: iconUrl,
+          scaledSize: iconSize,
+        },
+      });
+    } else {
+      // For ocisceno == false, omit the icon property to use the default Google Maps icon
+      return new google.maps.Marker({
+        position: coordinates,
+        map: this.map,
+      });
+    }
+  }
+
+  updateMarkers(): void {
+    this.markers.forEach(marker => marker.setMap(null));
+    this.markers = [];
+  
+    for (const odlagalisce of this.odlagaliscaList) {
+      const geometryString = odlagalisce.geometry;
+      const coordinates = this.parseGeometryString(geometryString);
+      const ocisceno = odlagalisce.ocisceno;
+      const nevarniOdpadki = odlagalisce.nevarniOdpadki;
+  
+      if ((ocisceno && this.showOciscenoTrue) ||
+          (!ocisceno && nevarniOdpadki === null && this.showOciscenoFalse) ||
+          (nevarniOdpadki !== null && !ocisceno && this.showNevarniOdpadki)) {
+        const marker = this.addMarker(coordinates, ocisceno);
+        this.markers.push(marker);
+      }
+    }
+  }
+
+  // Function to toggle the ocisceno true checkbox
+  toggleOciscenoTrue(): void {
+    this.showOciscenoTrue = !this.showOciscenoTrue;
+    this.updateMarkers();
+  }
+
+  // Function to toggle the ocisceno false checkbox
+  toggleOciscenoFalse(): void {
+    this.showOciscenoFalse = !this.showOciscenoFalse;
+    this.updateMarkers();
+  }
+    // Function to toggle the nevarniOdpadki checkbox
+    toggleNevarniOdpadki(): void {
+      this.showNevarniOdpadki = !this.showNevarniOdpadki;
+      this.updateMarkers();
+    }
 }

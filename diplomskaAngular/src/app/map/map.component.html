@@ -1,2 +1,22 @@
-<!-- <div #mapContainer style="width:100%;height:800px"></div> -->
-<div #mapContainer class="map-container"></div>
+<div class="filters">
+    <div class="checkbox-item">
+      <label>
+        <input type="checkbox" [(ngModel)]="showOciscenoTrue" (change)="updateMarkers()" />
+        Očiščena odlagališča
+      </label>
+    </div>
+    <div class="checkbox-item">
+      <label>
+        <input type="checkbox" [(ngModel)]="showOciscenoFalse" (change)="updateMarkers()" />
+        Divja odlagališča
+      </label>
+    </div>
+    <div class="checkbox-item">
+      <label>
+        <input type="checkbox" [(ngModel)]="showNevarniOdpadki" (change)="updateMarkers()" />
+        Odlagališča z nevarnimi odpadki
+      </label>
+    </div>
+  </div>
+  <div #mapContainer class="map-container"></div>
+  
