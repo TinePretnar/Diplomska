@@ -6,11 +6,15 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
+import { DataDisplayComponent } from './data-display/data-display.component';
+import { StripHtmlTagsPipe } from './strip-html-tags.pipe'; // Import the custom pipe here
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    DataDisplayComponent,
+    StripHtmlTagsPipe
   ],
   imports: [
     BrowserModule,

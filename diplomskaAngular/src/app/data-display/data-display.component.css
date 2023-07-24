@@ -1,0 +1,15 @@
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: #555;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    color: #f00; /* Optional: Change the color on hover */
+  }

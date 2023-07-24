@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, EventEmitter  } from '@angular/core';
 import { DataService } from '../data.service';
 
 declare const google: any;
@@ -17,6 +17,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   showOciscenoFalse = true;
   showNevarniOdpadki = true;
   odlagaliscaList: any[] = []; // Array to store the fetched data
+  selectedMarkerData: any;
+  isDataDisplayVisible = false;
+
 
   constructor(private dataService: DataService) { }
 
@@ -63,14 +66,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   displayOdlagalisca(odlagaliscaList: any[]): void {
     this.markers.forEach(marker => marker.setMap(null));
     this.markers = [];
-
+  
     for (const odlagalisce of odlagaliscaList) {
       const geometryString = odlagalisce.geometry;
       const coordinates = this.parseGeometryString(geometryString);
       const ocisceno = odlagalisce.ocisceno;
-
+  
       if ((ocisceno && this.showOciscenoTrue) || (!ocisceno && this.showOciscenoFalse)) {
-        const marker = this.addMarker(coordinates, ocisceno);
+        const marker = this.addMarker(odlagalisce, coordinates);
         this.markers.push(marker);
       }
     }
@@ -85,13 +88,13 @@ export class MapComponent implements OnInit, AfterViewInit {
     return { lat: 0, lng: 0 }; // Default coordinates if parsing fails
   }
 
-  addMarker(coordinates: { lat: number; lng: number }, ocisceno: boolean): any {
-    if (ocisceno) {
+  addMarker(odlagalisce: any, coordinates: { lat: number; lng: number }): any {
+    if (odlagalisce.ocisceno) {
       // Use the custom icon for ocisceno == true
       const iconUrl = 'assets/tree-icon.jpg';
       const iconSize = new google.maps.Size(32, 32); // Set the desired size of the icon image
-
-      return new google.maps.Marker({
+  
+      const marker = new google.maps.Marker({
         position: coordinates,
         map: this.map,
         icon: {
@@ -99,15 +102,28 @@ export class MapComponent implements OnInit, AfterViewInit {
           scaledSize: iconSize,
         },
       });
+  
+      // Add a click event listener to the marker
+      marker.addListener('click', () => {
+        this.onMarkerClick(odlagalisce, coordinates);
+      });
+  
+      return marker;
     } else {
       // For ocisceno == false, omit the icon property to use the default Google Maps icon
-      return new google.maps.Marker({
+      const marker = new google.maps.Marker({
         position: coordinates,
         map: this.map,
       });
+  
+      // Add a click event listener to the marker
+      marker.addListener('click', () => {
+        this.onMarkerClick(odlagalisce, coordinates);
+      });
+  
+      return marker;
     }
   }
-
   updateMarkers(): void {
     this.markers.forEach(marker => marker.setMap(null));
     this.markers = [];
@@ -121,12 +137,26 @@ export class MapComponent implements OnInit, AfterViewInit {
       if ((ocisceno && this.showOciscenoTrue) ||
           (!ocisceno && nevarniOdpadki === null && this.showOciscenoFalse) ||
           (nevarniOdpadki !== null && !ocisceno && this.showNevarniOdpadki)) {
-        const marker = this.addMarker(coordinates, ocisceno);
+        const marker = this.addMarker(odlagalisce, coordinates);
         this.markers.push(marker);
       }
     }
   }
+  onMarkerClick(odlagalisce: any, coordinates: { lat: number; lng: number }) {
+    console.log('Marker Clicked:', odlagalisce, coordinates); // Add this line to log odlagalisce and coordinates to the console
+    const markerData = { odlagalisce, coordinates }; // Create an object to hold both odlagalisce and coordinates
+    this.selectedMarkerData = markerData;
+    this.isDataDisplayVisible = true;
+  }
 
+    // Add an EventEmitter property
+    closeDataDisplayEvent: EventEmitter<void> = new EventEmitter();
+   
+    // Method to handle the close button click
+   closeDataDisplay() {
+    this.isDataDisplayVisible = false;
+  }
+  
   // Function to toggle the ocisceno true checkbox
   toggleOciscenoTrue(): void {
     this.showOciscenoTrue = !this.showOciscenoTrue;

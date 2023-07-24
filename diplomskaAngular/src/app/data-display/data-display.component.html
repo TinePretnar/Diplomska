@@ -1,0 +1,74 @@
+<!-- Use markerData to display the received data -->
+<div *ngIf="isDataDisplayVisible" class="app-data-display">
+    <button class="close-button" (click)="closeDataDisplay()">X</button>
+    <p *ngIf="markerData.odlagalisce.naziv !== null">
+        Naziv: {{ markerData.odlagalisce.naziv }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.ocisceno; else notOcisceno">Ocisceno</p>
+    <ng-template #notOcisceno>Ni ocisceno</ng-template>
+    <p *ngIf="markerData.odlagalisce.dostop !== null">
+        Dostop: {{ markerData.odlagalisce.dostop }}
+    </p>
+    <p>Coordinate: {{ markerData.coordinates.lat }}, {{ markerData.coordinates.lng }}</p>
+    <p *ngIf="markerData.odlagalisce.oddaljenostOdCesteVMetrih !== null">
+        Oddaljenost od ceste[m]: {{ markerData.odlagalisce.oddaljenostOdCesteVMetrih | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.lega !== null">
+        Lega: {{ markerData.odlagalisce.lega }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.povrsina !== null">
+        Površina[m2]: {{ markerData.odlagalisce.povrsina | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.prostornina !== null">
+        Prostornina: {{ markerData.odlagalisce.prostornina}}
+    </p>
+    <p *ngIf="markerData.odlagalisce.organskiOdpadki !== null  && markerData.odlagalisce.organskiOdpadki !== '0'">
+        Organski odpadki[%]: {{ markerData.odlagalisce.organskiOdpadki | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.gradbeniOdpadki !== null  && markerData.odlagalisce.gradbeniOdpadki !== '0'">
+        Gradbeni odpadki[%]: {{ markerData.odlagalisce.gradbeniOdpadki | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.komunalniOdpadki !== null && markerData.odlagalisce.komunalniOdpadki !== '0'">
+        Komunalni odpadki[%]: {{ markerData.odlagalisce.komunalniOdpadki | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.kosovniOdpadki !== null && markerData.odlagalisce.kosovniOdpadki !== '0'">
+        Kosovni odpadki[%]: {{ markerData.odlagalisce.kosovniOdpadki | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.pnevmatike !== null && markerData.odlagalisce.pnevmatike !== '0'">
+        Pnevmatike[%]: {{ markerData.odlagalisce.pnevmatike | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.motornaVozila !== null && markerData.odlagalisce.motornaVozila !== '0'">
+        Motorna vozila[%]: {{ markerData.odlagalisce.motornaVozila | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.salonitnePlosce !== null && markerData.odlagalisce.salonitnePlosce !== '0'">
+        Salonitne plosce[%]: {{ markerData.odlagalisce.salonitnePlosce | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.nevarniOdpadki !== null && markerData.odlagalisce.nevarniOdpadki !== '0'">
+        Nevarni odpadki[%]: {{ markerData.odlagalisce.nevarniOdpadki | number:'1.0-0' }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.nevarnaNeznanaTekocina">
+        Na območju je nevarna/neznana tekočina
+    </p>
+    <p *ngIf="markerData.odlagalisce.opisNevarnihOdpadkov !== null">
+        Opis nevarnih odpadkov: {{ markerData.odlagalisce.opisNevarnihOdpadkov | stripHtmlTags }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.odpadkiZakopani">
+        Velik del odpadkov je zakopanih
+    </p>
+    <p *ngIf="markerData.odlagalisce.opombe !== null">
+        Opombe: {{ markerData.odlagalisce.opombe| stripHtmlTags }}
+    </p>
+    <p *ngIf="markerData.odlagalisce.obcina !== null">
+        Občina: {{ markerData.odlagalisce.obcina}}
+    </p>
+    <p *ngIf="markerData.odlagalisce.datumVnosaVRegister !== null">
+        Datum vnosa v register: {{ markerData.odlagalisce.datumVnosaVRegister | date:'yyyy-MM-dd'}}
+    </p>
+    <p *ngIf="markerData.odlagalisce.datumZadnjeSpremembe !== null">
+        Datum zadnje spremembe: {{ markerData.odlagalisce.datumZadnjeSpremembe | date:'yyyy-MM-dd'}}
+    </p>
+      
+
+
+    <!-- Add more data properties as needed -->
+  </div>
