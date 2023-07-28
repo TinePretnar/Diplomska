@@ -28,3 +28,10 @@ app-data-display {
   z-index: 2; /* Make the component appear above the map */
   overflow-y: auto; /* Enable vertical scrolling */
 }
+
+.registration-button-container {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  right: 10px; /* Adjust the right position as needed */
+  z-index: 3; /* Ensure the button is above other elements */
+}

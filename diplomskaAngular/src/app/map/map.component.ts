@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit, EventEmitter  } from '@angular/core';
 import { DataService } from '../data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RegistrationComponent } from '../registration/registration.component';
+
 
 declare const google: any;
 
@@ -21,7 +24,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   isDataDisplayVisible = false;
 
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private dialog: MatDialog) { }
 
   ngOnInit() {
     // Fetch the data and store it in the odlagaliscaList variable
@@ -72,12 +75,18 @@ export class MapComponent implements OnInit, AfterViewInit {
       const coordinates = this.parseGeometryString(geometryString);
       const ocisceno = odlagalisce.ocisceno;
   
+      // Skip markers with coordinates (0,0)
+      if (coordinates.lat === 0 && coordinates.lng === 0) {
+        continue;
+      }
+  
       if ((ocisceno && this.showOciscenoTrue) || (!ocisceno && this.showOciscenoFalse)) {
         const marker = this.addMarker(odlagalisce, coordinates);
         this.markers.push(marker);
       }
     }
   }
+  
 
   parseGeometryString(geometryString: string): { lat: number; lng: number } {
     const regex = /MULTIPOINT \(\(([\d.]+) ([\d.]+)\)\)/;
@@ -172,5 +181,17 @@ export class MapComponent implements OnInit, AfterViewInit {
     toggleNevarniOdpadki(): void {
       this.showNevarniOdpadki = !this.showNevarniOdpadki;
       this.updateMarkers();
+    }
+
+    openRegistrationDialog(): void {
+      const dialogRef = this.dialog.open(RegistrationComponent, {
+        width: '500px',
+        disableClose: true,
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle any actions after the dialog is closed, if needed
+        console.log('Registration dialog closed:', result);
+      });
     }
 }
