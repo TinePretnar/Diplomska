@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit, EventEmitter  } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, EventEmitter } from '@angular/core';
 import { DataService } from '../data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RegistrationComponent } from '../registration/registration.component';
+import { LoginComponent } from '../login/login.component';
+import { UserService } from '../user.service'; // Import the UserService
+
 
 
 declare const google: any;
@@ -23,8 +26,13 @@ export class MapComponent implements OnInit, AfterViewInit {
   selectedMarkerData: any;
   isDataDisplayVisible = false;
 
+  user: any; // Store the authenticated user information
 
-  constructor(private dataService: DataService, private dialog: MatDialog) { }
+  constructor(
+    private dataService: DataService,
+    private dialog: MatDialog,
+    public userService: UserService // Inject the UserService
+  ) {}
 
   ngOnInit() {
     // Fetch the data and store it in the odlagaliscaList variable
@@ -193,5 +201,22 @@ export class MapComponent implements OnInit, AfterViewInit {
         // Handle any actions after the dialog is closed, if needed
         console.log('Registration dialog closed:', result);
       });
+    }
+    openLoginDialog(): void {
+      const dialogRef = this.dialog.open(LoginComponent, {
+        width: '500px',
+        disableClose: true,
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle any actions after the dialog is closed, if needed
+        console.log('Login dialog closed:', result);
+      });
+    }
+
+    logout(): void {
+      // Call the UserService to log the user out
+      this.userService.logout();
+      // ... (any other actions you want to perform on logout)
     }
 }

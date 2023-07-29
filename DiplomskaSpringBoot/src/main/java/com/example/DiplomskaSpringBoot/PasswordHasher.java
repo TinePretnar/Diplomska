@@ -26,4 +26,12 @@ public class PasswordHasher {
         }
         return null;
     }
+
+    public static boolean verifyPassword(String inputPassword, String hashedPassword) {
+        // Hash the input password using the same method as when it was stored
+        String hashedInputPassword = hashPassword(inputPassword);
+
+        // Compare the newly hashed input password with the stored hashed password
+        return hashedInputPassword.equals(hashedPassword);
+    }
 }

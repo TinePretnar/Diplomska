@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Login</h2>
+<form #loginForm="ngForm">
+  <mat-form-field>
+    <input matInput type="email" name="email" [(ngModel)]="email" #emailInput="ngModel" required placeholder="Email" />
+    <mat-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+      <span *ngIf="emailInput.errors?.['required']">Email is required</span>
+      <span *ngIf="emailInput.errors?.['email']">Invalid email format</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="password" name="password" [(ngModel)]="password" #passwordInput="ngModel" required placeholder="Password" />
+  </mat-form-field>
+
+    <!-- Display "Email already exists" error -->
+    <mat-error *ngIf="emailInvalid">
+        Elektronski naslov ni pravilen.
+    </mat-error>
+
+    <mat-error *ngIf="Failedlogin">
+        Elektronski naslov ali geslo je napačno
+    </mat-error>
+    
+
+  <div class="button-container">
+    <button mat-button (click)="onLogin()">Login</button>
+    <button mat-button (click)="onCancel()">Cancel</button>
+  </div>
+</form>

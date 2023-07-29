@@ -12,7 +12,10 @@ import { MapComponent } from './map/map.component';
 import { DataDisplayComponent } from './data-display/data-display.component';
 import { StripHtmlTagsPipe } from './strip-html-tags.pipe';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RegistrationComponent } from './registration/registration.component'; // Import the custom pipe here
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component'; // Import the custom pipe here
+
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { RegistrationComponent } from './registration/registration.component'; /
     MapComponent,
     DataDisplayComponent,
     StripHtmlTagsPipe,
-    RegistrationComponent
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,7 @@ import { RegistrationComponent } from './registration/registration.component'; /
     MatDialogModule,
     NoopAnimationsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
