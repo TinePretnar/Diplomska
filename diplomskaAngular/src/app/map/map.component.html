@@ -39,7 +39,21 @@
 
   <!-- Show user email and logout button if user is logged in -->
   <div *ngIf="userService.isLoggedIn()" class="user-info-container">
-    <span>Email: {{ userService.getUserData()?.email }}</span>
+    <span>{{ userService.getUserData()?.email }}</span>
     <button mat-raised-button color="warn" (click)="logout()">Odjava</button>
   </div>
 </div>
+
+<div class="add-marker-button-container" *ngIf="userService.isLoggedIn()">
+  <button mat-raised-button color="primary" [disabled]="isDataDisplayVisibleAddMarker" (click)="onAddMarker()">Dodaj odlagališče</button>
+</div>
+
+<!-- Show the AddDataComponent when isDataDisplayVisibleAddMarker is true -->
+<app-add-data
+  *ngIf="isDataDisplayVisibleAddMarker"
+  [markerData]="selectedMarkerData"
+  (markerDataChange)="updateMarkerData($event)" 
+  (dataAdded)="onDataAdded()"
+  (closeDialog)="onAddDataClose()"
+></app-add-data>
+

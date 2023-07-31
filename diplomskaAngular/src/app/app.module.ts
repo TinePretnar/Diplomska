@@ -13,7 +13,9 @@ import { DataDisplayComponent } from './data-display/data-display.component';
 import { StripHtmlTagsPipe } from './strip-html-tags.pipe';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './registration/registration.component';
-import { LoginComponent } from './login/login.component'; // Import the custom pipe here
+import { LoginComponent } from './login/login.component';
+import { AddDataComponent } from './add-data/add-data.component'; // Import the custom pipe here
+import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 
 
 
@@ -24,7 +26,8 @@ import { LoginComponent } from './login/login.component'; // Import the custom p
     DataDisplayComponent,
     StripHtmlTagsPipe,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    AddDataComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { LoginComponent } from './login/login.component'; // Import the custom p
     NoopAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

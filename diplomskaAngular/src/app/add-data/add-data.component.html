@@ -1,0 +1,18 @@
+<div class="add-data-container">
+    <!-- Display the clicked coordinates -->
+    <h2>Dodaj novo odlagališče</h2>
+    <p *ngIf="clickedCoordinates">
+      Koordinate: Lat: {{ clickedCoordinates.lat }}, Lng: {{ clickedCoordinates.lng }}
+    </p>
+    
+    <!-- Add your form elements here to capture the data needed for the new odlagališče -->
+    <mat-form-field>
+      <input matInput placeholder="Naziv" [(ngModel)]="naziv">
+    </mat-form-field>
+    <!-- Add more form elements as needed -->
+    
+    <!-- Buttons to save or cancel the new odlagališče -->
+    <button mat-raised-button color="primary" (click)="saveData()">Shrani</button>
+    <button mat-raised-button (click)="cancel()">Prekliči</button>
+  </div>
+  

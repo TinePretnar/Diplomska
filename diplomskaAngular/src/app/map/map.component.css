@@ -35,3 +35,23 @@ app-data-display {
   right: 10px; /* Adjust the right position as needed */
   z-index: 3; /* Ensure the button is above other elements */
 }
+
+.add-marker-button-container {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+app-add-data {
+  position: absolute;
+  top: 80px; /* Adjust the value to leave space at the top */
+  left: 0; /* Position the component on the right */
+  width: 300px; /* Adjust the width of the component */
+  max-height: calc(100vh - 80px); /* Set a maximum height to prevent full-page scrolling */
+  background-color: #2f4d58; /* Optional: Set a background color to the component */
+  padding: 10px; /* Optional: Add padding for better visibility */
+  z-index: 3; /* Make the component appear above the map */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
