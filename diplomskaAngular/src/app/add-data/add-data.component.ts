@@ -7,7 +7,28 @@ import { Component, EventEmitter, Output, OnInit, Input, OnChanges, SimpleChange
 })
 export class AddDataComponent implements OnInit, OnChanges {
   // Define properties to capture the data needed for the new odlagališče
-  naziv: string = '';
+  naziv: string | null = null;
+  očiščeno: boolean = false;
+  dostop: string | null = null;
+  oddaljenostOdCeste: number | null = null;
+  lega: string | null = null;
+  povrsina: number | null = null;
+  organskiOdpadki: number | null = null;
+  gradbeniOdpadki: number | null = null;
+  komunalniOdpadki: number | null = null;
+  kosovniOdpadki: number | null = null;
+  pnevmatike: number | null = null;
+  motornaVozila: number | null = null;
+  salonitnePlosce: number | null = null;
+  nevarniOdpadki: number | null = null;
+  nevarnaTekocina: boolean = false;
+  opisNevarnihOdpadkov: string | null = null;
+  odpadkiZakopani: boolean = false;
+  opombe: string | null = null;
+  obcina: string | null = null;
+  datumVnosaRegister: string | null = null;
+  datumZadnjeSpremembe: string | null = null;
+  ocenaPomembnosti: number | null = null;
   clickedCoordinates: { lat: number; lng: number } | null = null;
 
   // Declare the markerData property as an @Input
@@ -30,12 +51,29 @@ export class AddDataComponent implements OnInit, OnChanges {
 
   // Method to save the new odlagališče
   saveData() {
-    // Add the logic here to save the data to your backend or perform any other necessary actions
-    // For example, you can create an object with the data and emit it through the dataAdded EventEmitter
+    // Create an object with all the data needed for the new odlagališče
     const newOdlagalisce = {
       naziv: this.naziv,
-      coordinates: this.clickedCoordinates // Add the clicked coordinates to the new odlagališče data
-      // Add other properties as needed
+      coordinates: this.clickedCoordinates,
+      dostop: this.dostop,
+      oddaljenostOdCeste: this.oddaljenostOdCeste,
+      lega: this.lega,
+      povrsina: this.povrsina,
+      organskiOdpadki: this.organskiOdpadki,
+      gradbeniOdpadki: this.organskiOdpadki,
+      komunalniOdpadki: this.komunalniOdpadki,
+      kosovniOdpadki: this.kosovniOdpadki,
+      pnevmatike: this.pnevmatike,
+      motornaVozila: this.motornaVozila,
+      salonitnePlosce: this.salonitnePlosce,
+      nevarniOdpadki: this.nevarniOdpadki,
+      nevarnaTekocina: this.nevarnaTekocina,
+      opisNevarnihOdpadkov: this.opisNevarnihOdpadkov,
+      odpadkiZakopani: this.odpadkiZakopani,
+      opombe: this.opombe,
+      obcina: this.obcina,
+      ocenaPomembnosti: this.ocenaPomembnosti,
+      // Očiščeno, datumVnosaRegister, and datumZadnjeSpremembe will be obtained from other means
     };
 
     // Emit the dataAdded event with the new odlagališče data

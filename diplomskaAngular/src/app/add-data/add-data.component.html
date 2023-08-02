@@ -1,18 +1,117 @@
 <div class="add-data-container">
-    <!-- Display the clicked coordinates -->
-    <h2>Dodaj novo odlagališče</h2>
-    <p *ngIf="clickedCoordinates">
-      Koordinate: Lat: {{ clickedCoordinates.lat }}, Lng: {{ clickedCoordinates.lng }}
-    </p>
-    
-    <!-- Add your form elements here to capture the data needed for the new odlagališče -->
-    <mat-form-field>
+  <!-- Display the clicked coordinates -->
+  <h2>Dodaj novo odlagališče</h2>
+  <p *ngIf="clickedCoordinates">
+   Lat: {{ clickedCoordinates.lat }}
+  </p>
+  <p *ngIf="clickedCoordinates">
+    Lng: {{ clickedCoordinates.lng }}
+   </p>
+
+  <!-- Add your form elements here to capture the data needed for the new odlagališče -->
+  <div>
+    <mat-form-field class="wide-input">
       <input matInput placeholder="Naziv" [(ngModel)]="naziv">
     </mat-form-field>
-    <!-- Add more form elements as needed -->
-    
-    <!-- Buttons to save or cancel the new odlagališče -->
-    <button mat-raised-button color="primary" (click)="saveData()">Shrani</button>
-    <button mat-raised-button (click)="cancel()">Prekliči</button>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput placeholder="Dostop" [(ngModel)]="dostop">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Oddaljenost od ceste[m]" [(ngModel)]="oddaljenostOdCeste">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput placeholder="Lega" [(ngModel)]="lega">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Površina[m2]" [(ngModel)]="povrsina">
+    </mat-form-field>
+  </div>
+  <p>
+    Tukaj vnesete približek količine odpadkov v procentih
+   </p>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Organski odpadki%" [(ngModel)]="organskiOdpadki">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Gradbeni odpadki%" [(ngModel)]="gradbeniOdpadki">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Komunalni odpadki%" [(ngModel)]="komunalniOdpadki">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Kosovni odpadki%" [(ngModel)]="kosovniOdpadki">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Pnevmatike%" [(ngModel)]="pnevmatike">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Motorna Vozila%" [(ngModel)]="motornaVozila">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Salonitne plošče%" [(ngModel)]="salonitnePlosce">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Nevarni Odpadki%" [(ngModel)]="nevarniOdpadki">
+    </mat-form-field>
+  </div>
+
+  <!-- Wrap the first checkbox in a div -->
+  <div>
+    <mat-checkbox [(ngModel)]="nevarnaTekocina">Ali so na območju nevarne tekočine?</mat-checkbox>
+  </div>
+
+  <div>
+    <mat-form-field class="wide-input">
+      <textarea matInput placeholder="Opis nevarnih odpadkov" [(ngModel)]="opisNevarnihOdpadkov"></textarea>
+    </mat-form-field>
+  </div>
+
+  <!-- Wrap the second checkbox in a div -->
+  <div>
+    <mat-checkbox [(ngModel)]="odpadkiZakopani">So odpadki zakopani</mat-checkbox>
+  </div>
+
+  <div>
+    <mat-form-field class="wide-input">
+      <textarea matInput placeholder="Opombe" [(ngModel)]="opombe"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput placeholder="Občina" [(ngModel)]="obcina">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="wide-input">
+      <input matInput type="number" placeholder="Ocena pomembnosti(1-10)" [(ngModel)]="ocenaPomembnosti">
+    </mat-form-field>
   </div>
   
+  <!-- Buttons to save or cancel the new odlagališče -->
+  <button mat-raised-button color="primary" (click)="saveData()">Shrani</button>
+  <button mat-raised-button (click)="cancel()">Prekliči</button>
+</div>
