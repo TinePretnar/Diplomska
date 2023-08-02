@@ -299,12 +299,16 @@ export class MapComponent implements OnInit, AfterViewInit {
     
       // Close the AddDataComponent dialog without adding data
       this.isDataDisplayVisibleAddMarker = false;
-       // Trigger a virtual click on the map to update the marker's visibility
-      this.ngZone.runOutsideAngular(() => {
-        google.maps.event.trigger(this.map, 'click', {
-          latLng: new google.maps.LatLng(this.selectedMarkerData.coordinates.lat, this.selectedMarkerData.coordinates.lng)
+      
+      // Check if selectedMarkerData and its coordinates exist
+      if (this.selectedMarkerData && this.selectedMarkerData.coordinates) {
+        // Trigger a virtual click on the map to update the marker's visibility
+        this.ngZone.runOutsideAngular(() => {
+          google.maps.event.trigger(this.map, 'click', {
+            latLng: new google.maps.LatLng(this.selectedMarkerData.coordinates.lat, this.selectedMarkerData.coordinates.lng)
+          });
         });
-      });
+      }
     }
 }
     

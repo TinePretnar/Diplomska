@@ -27,6 +27,11 @@ public class DiplomskaController {
         return odlagaliscaService.getOdlagalisca();
     }
 
+    @PostMapping("/add")
+    public void addNewOdlagalisce(@RequestBody Odlagalisca newOdlagalisce) {
+        odlagaliscaService.addNewOdlagalisce(newOdlagalisce);
+    }
+
     @GetMapping("/user/checkEmail")
     public boolean checkEmailExists(@RequestParam String email) {
         return userService.checkEmailExists(email);

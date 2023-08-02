@@ -9,8 +9,13 @@ export class DataService {
   private baseUrl = 'http://localhost:8080'; // Replace with your Spring Boot backend URL
 
   constructor(private http: HttpClient) {}
+  
 
   getOdlagalisca(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/odlagalisca`);
+  }
+
+  addOdlagalisce(odlagalisce: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/odlagalisca/add`, odlagalisce);
   }
 }

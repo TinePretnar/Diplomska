@@ -7,6 +7,8 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKBReader;
 import org.locationtech.jts.io.WKTWriter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 
@@ -14,9 +16,11 @@ import java.util.List;
 public class OdlagaliscaService {
 
     private final OdlagaliscaRepository odlagaliscaRepository;
+    private final TransactionTemplate transactionTemplate;
 
-    public OdlagaliscaService(OdlagaliscaRepository odlagaliscaRepository) {
+    public OdlagaliscaService(OdlagaliscaRepository odlagaliscaRepository, PlatformTransactionManager transactionManager) {
         this.odlagaliscaRepository = odlagaliscaRepository;
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
     }
 
     public List<Odlagalisca> getOdlagalisca() {
@@ -52,5 +56,37 @@ public class OdlagaliscaService {
                     + Character.digit(hexString.charAt(i + 1), 16));
         }
         return data;
+    }
+    public void addNewOdlagalisce(Odlagalisca newOdlagalisce) {
+        transactionTemplate.execute(status -> {
+            odlagaliscaRepository.insertOdlagalisca(
+                    newOdlagalisce.getNaziv(),
+                    newOdlagalisce.getGeometry(),
+                    newOdlagalisce.getDostop(),
+                    newOdlagalisce.getOddaljenostOdCesteVMetrih(),
+                    newOdlagalisce.getLega(),
+                    newOdlagalisce.getPovrsina(),
+                    newOdlagalisce.getProstornina(),
+                    newOdlagalisce.getOrganskiOdpadki(),
+                    newOdlagalisce.getGradbeniOdpadki(),
+                    newOdlagalisce.getKomunalniOdpadki(),
+                    newOdlagalisce.getKosovniOdpadki(),
+                    newOdlagalisce.getPnevmatike(),
+                    newOdlagalisce.getMotornaVozila(),
+                    newOdlagalisce.getSalonitnePlosce(),
+                    newOdlagalisce.getNevarniOdpadki(),
+                    newOdlagalisce.isNevarnaNeznanaTekocina(),
+                    newOdlagalisce.getOpisNevarnihOdpadkov(),
+                    newOdlagalisce.isOdpadkiZakopani(),
+                    newOdlagalisce.getOpombe(),
+                    newOdlagalisce.getObcina(),
+                    newOdlagalisce.getOcenaPomembnosti(),
+                    newOdlagalisce.isOcisceno(),
+                    newOdlagalisce.getDatumVnosaVRegister(),
+                    newOdlagalisce.getDatumZadnjeSpremembe(),
+                    newOdlagalisce.isNepotrjen()
+            );
+            return null;
+        });
     }
 }

@@ -2,11 +2,13 @@ package com.example.DiplomskaSpringBoot.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "registerdivjihodlagalisc")
 public class Odlagalisca {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "_id_")
     private int id;
 
@@ -20,40 +22,40 @@ public class Odlagalisca {
     private String dostop;
 
     @Column(name = "oddaljenost od ceste [m]")
-    private String oddaljenostOdCesteVMetrih;
+    private Double oddaljenostOdCesteVMetrih;
 
     @Column(name = "lega")
     private String lega;
 
     @Column(name = "površina [m2]")
-    private String povrsina;
+    private Double povrsina;
 
     @Column(name = "prostornina")
     private String prostornina;
 
     @Column(name = "organski odpadki %")
-    private String organskiOdpadki;
+    private Double organskiOdpadki;
 
     @Column(name = "gradbeni odpadki %")
-    private String gradbeniOdpadki;
+    private Double gradbeniOdpadki;
 
     @Column(name = "komunalni odpadki %")
-    private String komunalniOdpadki;
+    private Double komunalniOdpadki;
 
     @Column(name = "kosovni odpadki %")
-    private String kosovniOdpadki;
+    private Double kosovniOdpadki;
 
     @Column(name = "pnevmatike %")
-    private String pnevmatike;
+    private Double pnevmatike;
 
     @Column(name = "motorna vozila %")
-    private String motornaVozila;
+    private Double motornaVozila;
 
     @Column(name = "salonitne plošče %")
-    private String salonitnePlosce;
+    private Double salonitnePlosce;
 
     @Column(name = "nevarni odpadki %")
-    private String nevarniOdpadki;
+    private Double nevarniOdpadki;
 
     @Column(name = "sodi z nevarno/neznano tekočino")
     private boolean nevarnaNeznanaTekocina;
@@ -71,16 +73,16 @@ public class Odlagalisca {
     private String obcina;
 
     @Column(name = "datum vnosa v register")
-    private String datumVnosaVRegister;
+    private Timestamp datumVnosaVRegister;
 
     @Column(name = "datum zadnje spremembe")
-    private String datumZadnjeSpremembe;
+    private Timestamp datumZadnjeSpremembe;
 
     @Column(name = "ocena pomembnosti")
-    private String ocenaPomembnosti;
+    private Double ocenaPomembnosti;
 
-    @Column(name = "statistična regija")
-    private String statRegija;
+    @Column(name = "nepotrjen")
+    private boolean nepotrjen;
 
     @Column(name = "geometry")
     private String geometry;
@@ -89,12 +91,12 @@ public class Odlagalisca {
     protected Odlagalisca() {
     }
     // Parameterized constructor
-    public Odlagalisca(int id, boolean ocisceno, String naziv, String dostop, String oddaljenostOdCesteVMetrih,
-                       String lega, String povrsina, String prostornina, String organskiOdpadki, String gradbeniOdpadki,
-                       String komunalniOdpadki, String kosovniOdpadki, String pnevmatike, String motornaVozila,
-                       String salonitnePlosce, String nevarniOdpadki, boolean nevarnaNeznanaTekocina, String opisNevarnihOdpadkov,
-                       boolean odpadkiZakopani, String opombe, String obcina, String datumVnosaVRegister,
-                       String datumZadnjeSpremembe, String ocenaPomembnosti, String geometry) {
+    public Odlagalisca(int id, boolean ocisceno, String naziv, String dostop, Double oddaljenostOdCesteVMetrih,
+                       String lega, Double povrsina, String prostornina, Double organskiOdpadki, Double gradbeniOdpadki,
+                       Double komunalniOdpadki, Double kosovniOdpadki, Double pnevmatike, Double motornaVozila,
+                       Double salonitnePlosce, Double nevarniOdpadki, boolean nevarnaNeznanaTekocina, String opisNevarnihOdpadkov,
+                       boolean odpadkiZakopani, String opombe, String obcina, Timestamp datumVnosaVRegister,
+                       Timestamp datumZadnjeSpremembe, Double ocenaPomembnosti, String geometry, boolean nepotrjen) {
         this.id = id;
         this.ocisceno = ocisceno;
         this.naziv = naziv;
@@ -120,6 +122,7 @@ public class Odlagalisca {
         this.datumZadnjeSpremembe = datumZadnjeSpremembe;
         this.ocenaPomembnosti = ocenaPomembnosti;
         this.geometry = geometry;
+        this.nepotrjen = nepotrjen;
     }
 
     // Getters and Setters for all attributes
@@ -155,11 +158,11 @@ public class Odlagalisca {
         this.dostop = dostop;
     }
 
-    public String getOddaljenostOdCesteVMetrih() {
+    public Double getOddaljenostOdCesteVMetrih() {
         return oddaljenostOdCesteVMetrih;
     }
 
-    public void setOddaljenostOdCesteVMetrih(String oddaljenostOdCesteVMetrih) {
+    public void setOddaljenostOdCesteVMetrih(Double oddaljenostOdCesteVMetrih) {
         this.oddaljenostOdCesteVMetrih = oddaljenostOdCesteVMetrih;
     }
 
@@ -171,11 +174,11 @@ public class Odlagalisca {
         this.lega = lega;
     }
 
-    public String getPovrsina() {
+    public Double getPovrsina() {
         return povrsina;
     }
 
-    public void setPovrsina(String povrsina) {
+    public void setPovrsina(Double povrsina) {
         this.povrsina = povrsina;
     }
 
@@ -187,67 +190,67 @@ public class Odlagalisca {
         this.prostornina = prostornina;
     }
 
-    public String getOrganskiOdpadki() {
+    public Double getOrganskiOdpadki() {
         return organskiOdpadki;
     }
 
-    public void setOrganskiOdpadki(String organskiOdpadki) {
+    public void setOrganskiOdpadki(Double organskiOdpadki) {
         this.organskiOdpadki = organskiOdpadki;
     }
 
-    public String getGradbeniOdpadki() {
+    public Double getGradbeniOdpadki() {
         return gradbeniOdpadki;
     }
 
-    public void setGradbeniOdpadki(String gradbeniOdpadki) {
+    public void setGradbeniOdpadki(Double gradbeniOdpadki) {
         this.gradbeniOdpadki = gradbeniOdpadki;
     }
 
-    public String getKomunalniOdpadki() {
+    public Double getKomunalniOdpadki() {
         return komunalniOdpadki;
     }
 
-    public void setKomunalniOdpadki(String komunalniOdpadki) {
+    public void setKomunalniOdpadki(Double komunalniOdpadki) {
         this.komunalniOdpadki = komunalniOdpadki;
     }
 
-    public String getKosovniOdpadki() {
+    public Double getKosovniOdpadki() {
         return kosovniOdpadki;
     }
 
-    public void setKosovniOdpadki(String kosovniOdpadki) {
+    public void setKosovniOdpadki(Double kosovniOdpadki) {
         this.kosovniOdpadki = kosovniOdpadki;
     }
 
-    public String getPnevmatike() {
+    public Double getPnevmatike() {
         return pnevmatike;
     }
 
-    public void setPnevmatike(String pnevmatike) {
+    public void setPnevmatike(Double pnevmatike) {
         this.pnevmatike = pnevmatike;
     }
 
-    public String getMotornaVozila() {
+    public Double getMotornaVozila() {
         return motornaVozila;
     }
 
-    public void setMotornaVozila(String motornaVozila) {
+    public void setMotornaVozila(Double motornaVozila) {
         this.motornaVozila = motornaVozila;
     }
 
-    public String getSalonitnePlosce() {
+    public Double getSalonitnePlosce() {
         return salonitnePlosce;
     }
 
-    public void setSalonitnePlosce(String salonitnePlosce) {
+    public void setSalonitnePlosce(Double salonitnePlosce) {
         this.salonitnePlosce = salonitnePlosce;
     }
 
-    public String getNevarniOdpadki() {
+    public Double getNevarniOdpadki() {
         return nevarniOdpadki;
     }
 
-    public void setNevarniOdpadki(String nevarniOdpadki) {
+    public void setNevarniOdpadki(Double nevarniOdpadki) {
         this.nevarniOdpadki = nevarniOdpadki;
     }
 
@@ -291,27 +294,27 @@ public class Odlagalisca {
         this.obcina = obcina;
     }
 
-    public String getDatumVnosaVRegister() {
+    public Timestamp getDatumVnosaVRegister() {
         return datumVnosaVRegister;
     }
 
-    public void setDatumVnosaVRegister(String datumVnosaVRegister) {
+    public void setDatumVnosaVRegister(Timestamp datumVnosaVRegister) {
         this.datumVnosaVRegister = datumVnosaVRegister;
     }
 
-    public String getDatumZadnjeSpremembe() {
+    public Timestamp getDatumZadnjeSpremembe() {
         return datumZadnjeSpremembe;
     }
 
-    public void setDatumZadnjeSpremembe(String datumZadnjeSpremembe) {
+    public void setDatumZadnjeSpremembe(Timestamp datumZadnjeSpremembe) {
         this.datumZadnjeSpremembe = datumZadnjeSpremembe;
     }
 
-    public String getOcenaPomembnosti() {
+    public Double getOcenaPomembnosti() {
         return ocenaPomembnosti;
     }
 
-    public void setOcenaPomembnosti(String ocenaPomembnosti) {
+    public void setOcenaPomembnosti(Double ocenaPomembnosti) {
         this.ocenaPomembnosti = ocenaPomembnosti;
     }
 
@@ -322,4 +325,13 @@ public class Odlagalisca {
     public void setGeometry(String geometry) {
         this.geometry = geometry;
     }
+
+    public boolean isNepotrjen() {
+        return nepotrjen;
+    }
+
+    public void setNepotrjen(boolean nepotrjen) {
+        this.nepotrjen = nepotrjen;
+    }
+
 }
