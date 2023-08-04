@@ -21,6 +21,8 @@
                #confirmPasswordInput="ngModel" required placeholder="Potrdiev gesla" />
     </mat-form-field>
 
+    <re-captcha (resolved)="resolved($event)" siteKey="6LehImUnAAAAAGL9Yy2ix5gVBScv0nEbDg4UMUDK"></re-captcha>
+
     <!-- Display "Passwords do not match" error -->
     <mat-error *ngIf="!passwordsMatch && registrationForm.dirty">
         Gesli se ne ujemata
@@ -33,6 +35,10 @@
     <!-- Display "Email already exists" error -->
     <mat-error *ngIf="emailInvalid">
         Elektronski naslov ni pravilen.
+    </mat-error>
+
+    <mat-error *ngIf="notHuman">
+        Potrdite da ste človek.
     </mat-error>
 
     <div class="button-container">

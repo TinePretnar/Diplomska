@@ -8,14 +8,18 @@ import { UserService } from '../user.service'; // Import the user service
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+  capthcha: string;
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
   passwordsMatch: boolean = true;
   emailExists: boolean = false;
   emailInvalid: boolean = false;
+  notHuman: boolean = false;
 
-  constructor(private dialogRef: MatDialogRef<RegistrationComponent>, private userService: UserService) { }
+  constructor(private dialogRef: MatDialogRef<RegistrationComponent>, private userService: UserService) {
+    this.capthcha = '';
+  }
 
   ngOnInit(): void {
   }
@@ -35,6 +39,15 @@ export class RegistrationComponent implements OnInit {
       // Display error message for passwords not matching
       console.log('Passwords do not match.');
       this.passwordsMatch = false;
+      return;
+    }
+
+     // Check if the captcha is not empty
+   if (this.capthcha.trim() === '') {
+    // Display error message for empty captcha
+      console.log('Captcha is required.');
+      this.notHuman = true
+    // You can set a flag or error message here to show on the UI
       return;
     }
   
@@ -88,6 +101,11 @@ validateEmail(email: string): boolean {
     console.log(this.passwordsMatch)
     return this.passwordsMatch
   }
+
+public resolved(capthchaResponse: string){
+  this.capthcha = capthchaResponse;
+  console.log('resolved captcha with response: ' + this.capthcha);
+}
   
 
 }

@@ -17,6 +17,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { AddDataComponent } from './add-data/add-data.component'; // Import the custom pipe here
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { RecaptchaModule } from 'ng-recaptcha';
 
 
 
@@ -40,7 +41,8 @@ import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsMod
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    RecaptchaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
