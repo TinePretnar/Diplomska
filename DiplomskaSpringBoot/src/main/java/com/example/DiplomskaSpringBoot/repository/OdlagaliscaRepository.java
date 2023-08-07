@@ -22,11 +22,11 @@ public interface OdlagaliscaRepository extends JpaRepository<Odlagalisca, Intege
             "\"nevarni odpadki %\", \"sodi z nevarno/neznano tekočino\", " +
             "\"opis in količina nevarnih odpadkov\", \"velik del odpadkov je zakopanih?\", " +
             "opombe, občina, \"ocena pomembnosti\", očiščeno, \"datum vnosa v register\", " +
-            "\"datum zadnje spremembe\", nepotrjen) " +
+            "\"datum zadnje spremembe\", nepotrjen, picture_paths) " +
             "VALUES (:naziv, public.ST_GeomFromText(:geometry), :dostop, :oddaljenostOdCesteVMetrih, :lega, :povrsina, :prostornina, " +
             ":organskiOdpadki, :gradbeniOdpadki, :komunalniOdpadki, :kosovniOdpadki, :pnevmatike, :motornaVozila, " +
             ":salonitnePlosce, :nevarniOdpadki, :nevarnaNeznanaTekocina, :opisNevarnihOdpadkov, :odpadkiZakopani, " +
-            ":opombe, :obcina, :ocenaPomembnosti, :ocisceno, :datumVnosaVRegister, :datumZadnjeSpremembe, :nepotrjen)",
+            ":opombe, :obcina, :ocenaPomembnosti, :ocisceno, :datumVnosaVRegister, :datumZadnjeSpremembe, :nepotrjen, :picturePaths)",
             nativeQuery = true)
 
     void insertOdlagalisca(
@@ -54,7 +54,8 @@ public interface OdlagaliscaRepository extends JpaRepository<Odlagalisca, Intege
             @Param("ocisceno") boolean ocisceno,
             @Param("datumVnosaVRegister") Timestamp datumVnosaVRegister,
             @Param("datumZadnjeSpremembe") Timestamp datumZadnjeSpremembe,
-            @Param("nepotrjen") boolean nepotrjen
+            @Param("nepotrjen") boolean nepotrjen,
+            @Param("picturePaths") String[] picturePaths
     );
 }
 

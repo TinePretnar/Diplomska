@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { AddDataComponent } from './add-data/add-data.component'; // Import the custom pipe here
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { RecaptchaModule } from 'ng-recaptcha';
+import { ImagePopupComponent } from './image-popup/image-popup.component';
 
 
 
@@ -29,7 +30,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
     StripHtmlTagsPipe,
     RegistrationComponent,
     LoginComponent,
-    AddDataComponent
+    AddDataComponent,
+    ImagePopupComponent
   ],
   imports: [
     BrowserModule,

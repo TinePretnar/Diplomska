@@ -1,4 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ImagePopupComponent } from '../image-popup/image-popup.component';
 
 @Component({
   selector: 'app-data-display',
@@ -16,4 +18,18 @@ export class DataDisplayComponent {
   closeDataDisplay() {
     this.closeDataDisplayEvent.emit();
   }
+
+  constructor(private dialog: MatDialog) {}
+
+  openImagePopup(imagePath: string): void {
+    // Open the image popup using the Angular Material Dialog and pass data
+    const dialogRef = this.dialog.open(ImagePopupComponent, {
+      data: { imagePath },
+    });
+  
+    // Subscribe to the afterClosed event to handle actions after the dialog is closed (optional)
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Image popup closed');
+    });
+  } 
 }

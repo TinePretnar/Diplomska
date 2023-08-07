@@ -4,10 +4,18 @@ import com.example.DiplomskaSpringBoot.entity.Odlagalisca;
 import com.example.DiplomskaSpringBoot.entity.User;
 import com.example.DiplomskaSpringBoot.service.OdlagaliscaService;
 import com.example.DiplomskaSpringBoot.service.UserService;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -27,8 +35,42 @@ public class DiplomskaController {
         return odlagaliscaService.getOdlagalisca();
     }
 
+    @GetMapping("/uploads/{fileName:.+}")
+    public ResponseEntity<Resource> serveImage(@PathVariable String fileName) {
+        // Define the path to the uploads directory
+        String uploadsDirectoryPath = "C:/Users/tine/Desktop/Diplomska/DiplomskaSpringBoot/src/main/java/com/example/DiplomskaSpringBoot/uploads/";
+
+        // Construct the path to the requested image file
+        String filePath = uploadsDirectoryPath + fileName;
+
+        // Create a FileSystemResource from the file path
+        Resource resource = new FileSystemResource(filePath);
+
+        // Check if the file exists and is readable
+        if (resource.exists() && resource.isReadable()) {
+            // Return the image file with the appropriate Content-Type
+            return ResponseEntity.ok().header("Content-Type", "image/png").body(resource);
+        } else {
+            // Return a 404 Not Found response if the file does not exist or is not readable
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/add")
-    public void addNewOdlagalisce(@RequestBody Odlagalisca newOdlagalisce) {
+    public void addNewOdlagalisce(@RequestPart Odlagalisca newOdlagalisce, @RequestParam("images") MultipartFile[] images) {
+        // Check if images were uploaded
+        if (images != null && images.length > 0) {
+            String[] picturePaths = new String[images.length];
+            // Save pictures locally and get their paths
+            savePicturesOnServer(picturePaths, Arrays.asList(images));
+            // Set the picturePaths in the Odlagalisca entity
+            newOdlagalisce.setPicturePaths(picturePaths);
+        }else{
+            // Set picturePaths to null if there are no images
+            newOdlagalisce.setPicturePaths(null);
+        }
+
+        // Save the Odlagalisca entity with picture paths in the database
         odlagaliscaService.addNewOdlagalisce(newOdlagalisce);
     }
 
@@ -58,5 +100,27 @@ public class DiplomskaController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: Incorrect email or password.");
         }
     }
+
+    private void savePicturesOnServer(String[] picturePaths, List<MultipartFile> images) {
+        try {
+            // Create the uploads directory if it doesn't exist
+            Path uploadsDirectory = Paths.get("C:/Users/tine/Desktop/Diplomska/DiplomskaSpringBoot/src/main/java/com/example/DiplomskaSpringBoot/uploads");
+            Files.createDirectories(uploadsDirectory);
+
+            // Loop through the images and save them on the server with unique names
+            for (int i = 0; i < images.size(); i++) {
+                MultipartFile image = images.get(i);
+                String uniqueFileName = System.currentTimeMillis() + "_" + i + "_" + image.getOriginalFilename();
+                Path filePath = uploadsDirectory.resolve(uniqueFileName);
+                Files.write(filePath, image.getBytes());
+                picturePaths[i] = "http://localhost:8080/odlagalisca/uploads/" + uniqueFileName; // Store the URL path in the picturePaths array
+            }
+        } catch (IOException e) {
+            // Handle any errors that occur during file saving
+            e.printStackTrace();
+            // You can also throw an exception or return an error response if needed
+        }
+    }
+
 }
 

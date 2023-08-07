@@ -84,7 +84,8 @@ public class OdlagaliscaService {
                     newOdlagalisce.isOcisceno(),
                     newOdlagalisce.getDatumVnosaVRegister(),
                     newOdlagalisce.getDatumZadnjeSpremembe(),
-                    newOdlagalisce.isNepotrjen()
+                    newOdlagalisce.isNepotrjen(),
+                    newOdlagalisce.getPicturePaths()
             );
             return null;
         });

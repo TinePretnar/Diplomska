@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DataService } from '../data.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-data',
@@ -29,6 +30,8 @@ export class AddDataComponent implements OnInit, OnChanges {
   obcina: string | null = null;
   ocenaPomembnosti: number | null = null;
   clickedCoordinates: { lat: number; lng: number } | null = null;
+  selectedImages: File[] = [];
+  imagePreviews: SafeUrl[] = [];
 
   // Declare the markerData property as an @Input
   @Input() markerData: any;
@@ -37,7 +40,7 @@ export class AddDataComponent implements OnInit, OnChanges {
   @Output() dataAdded: EventEmitter<any> = new EventEmitter();
   @Output() closeDialog: EventEmitter<void> = new EventEmitter();
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
   }
@@ -50,6 +53,41 @@ export class AddDataComponent implements OnInit, OnChanges {
     }
   }
 
+  onImageSelected(event: any): void {
+    // Get the selected image files (files property is an array-like object)
+    this.selectedImages = Array.from(event.target.files);
+
+    // Preprocess the images and store SafeUrl objects in imagePreviews
+    this.imagePreviews = this.selectedImages.map(image => this.getImageUrl(image));
+  }
+
+  // Method to remove the selected image at the specified index
+  removeImage(index: number): void {
+    this.selectedImages.splice(index, 1);
+    this.imagePreviews.splice(index, 1); // Remove the corresponding base64-encoded string
+  }
+
+  // Updated method to get the URL of the selected image for preview (using DomSanitizer)
+  getImageUrl(image: File): SafeUrl {
+    const url = URL.createObjectURL(image);
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+
+    // Add this method in your component
+  getBase64Image(image: File): string {
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = () => {
+      // The reader.result contains the base64-encoded image data
+      // You can use it as the src attribute for the img tag
+      // This will not cause the ExpressionChangedAfterItHasBeenCheckedError
+      return reader.result as string;
+    };
+    return ''; // Default empty string
+  }
+
+
   // Method to save the new odlagališče
   saveData() {
     const currentDate = new Date();
@@ -59,36 +97,40 @@ export class AddDataComponent implements OnInit, OnChanges {
      : null;
    
     // Create an object with all the data needed for the new odlagališče
-    const newOdlagalisce = {
-      naziv: this.naziv,
-      geometry: wktCoordinates,
-      dostop: this.dostop,
-      oddaljenostOdCesteVMetrih: this.oddaljenostOdCeste,
-      lega: this.lega,
-      povrsina: this.povrsina,
-      prostornina: this.prostornina,
-      organskiOdpadki: this.organskiOdpadki,
-      gradbeniOdpadki: this.organskiOdpadki,
-      komunalniOdpadki: this.komunalniOdpadki,
-      kosovniOdpadki: this.kosovniOdpadki,
-      pnevmatike: this.pnevmatike,
-      motornaVozila: this.motornaVozila,
-      salonitnePlosce: this.salonitnePlosce,
-      nevarniOdpadki: this.nevarniOdpadki,
-      nevarnaNeznanaTekocina: this.nevarnaTekocina,
-      opisNevarnihOdpadkov: this.opisNevarnihOdpadkov,
-      odpadkiZakopani: this.odpadkiZakopani,
-      opombe: this.opombe,
-      obcina: this.obcina,
-      ocenaPomembnosti: this.ocenaPomembnosti,
-      ocisceno: false,
-      datumVnosaVRegister: currentDate, 
-      datumZadnjeSpremembe: currentDate,
-      nepotrjen: true,
+    const formData ={
+      newOdlagalisce: {
+        naziv: this.naziv,
+        geometry: wktCoordinates,
+        dostop: this.dostop,
+        oddaljenostOdCesteVMetrih: this.oddaljenostOdCeste,
+        lega: this.lega,
+        povrsina: this.povrsina,
+        prostornina: this.prostornina,
+        organskiOdpadki: this.organskiOdpadki,
+        gradbeniOdpadki: this.organskiOdpadki,
+        komunalniOdpadki: this.komunalniOdpadki,
+        kosovniOdpadki: this.kosovniOdpadki,
+        pnevmatike: this.pnevmatike,
+        motornaVozila: this.motornaVozila,
+        salonitnePlosce: this.salonitnePlosce,
+        nevarniOdpadki: this.nevarniOdpadki,
+        nevarnaNeznanaTekocina: this.nevarnaTekocina,
+        opisNevarnihOdpadkov: this.opisNevarnihOdpadkov,
+        odpadkiZakopani: this.odpadkiZakopani,
+        opombe: this.opombe,
+        obcina: this.obcina,
+        ocenaPomembnosti: this.ocenaPomembnosti,
+        ocisceno: false,
+        datumVnosaVRegister: currentDate, 
+        datumZadnjeSpremembe: currentDate,
+        nepotrjen: true,
+        picturePaths: null
+      },
+      images: this.selectedImages
     };
 
     // Emit the dataAdded event with the new odlagališče data
-    this.dataService.addOdlagalisce(newOdlagalisce).subscribe(
+    this.dataService.addOdlagalisce(formData).subscribe(
       (response) => {
         console.log('Odlagališče added successfully:', response);
         // Emit the dataAdded event with the new odlagališče data

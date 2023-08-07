@@ -15,7 +15,19 @@ export class DataService {
     return this.http.get<any>(`${this.baseUrl}/odlagalisca`);
   }
 
-  addOdlagalisce(odlagalisce: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/odlagalisca/add`, odlagalisce);
+  addOdlagalisce(formData: any): Observable<any> {
+    // Create a new FormData object
+    const formDataObj = new FormData();
+  
+    // Append the JSON data as a Blob with 'application/json' content type
+    const jsonDataBlob = new Blob([JSON.stringify(formData.newOdlagalisce)], { type: 'application/json' });
+    formDataObj.append('newOdlagalisce', jsonDataBlob);
+  
+    // Append each image as a separate part in the FormData
+    for (const image of formData.images) {
+      formDataObj.append('images', image, image.name);
+    }
+  
+    return this.http.post<any>(`${this.baseUrl}/odlagalisca/add`, formDataObj);
   }
 }

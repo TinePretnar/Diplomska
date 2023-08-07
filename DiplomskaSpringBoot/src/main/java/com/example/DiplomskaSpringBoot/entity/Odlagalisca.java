@@ -87,6 +87,9 @@ public class Odlagalisca {
     @Column(name = "geometry")
     private String geometry;
 
+    @Column(name = "picture_paths", columnDefinition = "text[]")
+    private String[] picturePaths;
+
     // Default constructor (required by JPA)
     protected Odlagalisca() {
     }
@@ -96,7 +99,7 @@ public class Odlagalisca {
                        Double komunalniOdpadki, Double kosovniOdpadki, Double pnevmatike, Double motornaVozila,
                        Double salonitnePlosce, Double nevarniOdpadki, boolean nevarnaNeznanaTekocina, String opisNevarnihOdpadkov,
                        boolean odpadkiZakopani, String opombe, String obcina, Timestamp datumVnosaVRegister,
-                       Timestamp datumZadnjeSpremembe, Double ocenaPomembnosti, String geometry, boolean nepotrjen) {
+                       Timestamp datumZadnjeSpremembe, Double ocenaPomembnosti, String geometry, boolean nepotrjen, String[] picturePaths) {
         this.id = id;
         this.ocisceno = ocisceno;
         this.naziv = naziv;
@@ -123,6 +126,7 @@ public class Odlagalisca {
         this.ocenaPomembnosti = ocenaPomembnosti;
         this.geometry = geometry;
         this.nepotrjen = nepotrjen;
+        this.picturePaths = picturePaths;
     }
 
     // Getters and Setters for all attributes
@@ -332,6 +336,14 @@ public class Odlagalisca {
 
     public void setNepotrjen(boolean nepotrjen) {
         this.nepotrjen = nepotrjen;
+    }
+
+
+    public String[] getPicturePaths() {
+        return picturePaths;
+    }
+    public void setPicturePaths(String[] picturePaths) {
+        this.picturePaths = picturePaths;
     }
 
 }

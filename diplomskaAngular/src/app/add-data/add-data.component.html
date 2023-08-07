@@ -97,6 +97,27 @@
     </mat-form-field>
   </div>
 
+<!-- Replace the existing file input with the "multiple" attribute -->
+<p>
+  Tukaj lahko naložite slike divjega odlagališča
+</p>
+<div>
+  <input type="file" (change)="onImageSelected($event)" multiple>
+</div>
+
+<!-- Display the selected images and a "Remove" button for each image -->
+<div *ngIf="selectedImages.length > 0">
+  <h3>Izbrane slike</h3>
+  <div *ngFor="let image of selectedImages; let i = index" class="image-container">
+    <!-- Use the SafeUrl object from imagePreviews to display the image -->
+    <img [src]="imagePreviews[i]" alt="Selected Image" class="image-preview">
+    <button class="remove-button" (click)="removeImage(i)">X</button>
+  </div>   
+</div>
+
+
+
+
   <!-- Wrap the second checkbox in a div -->
   <div>
     <mat-checkbox [(ngModel)]="odpadkiZakopani">So odpadki zakopani</mat-checkbox>

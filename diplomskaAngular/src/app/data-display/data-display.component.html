@@ -52,6 +52,17 @@
     <p *ngIf="markerData.odlagalisce.opisNevarnihOdpadkov !== null">
         Opis nevarnih odpadkov: {{ markerData.odlagalisce.opisNevarnihOdpadkov | stripHtmlTags }}
     </p>
+
+    <!-- Display image previews -->
+    <div *ngIf="markerData.odlagalisce.picturePaths && markerData.odlagalisce.picturePaths.length > 0">
+        <h4>Slike</h4>
+        <div>
+        <!-- Use ngFor to iterate through the picturePaths array -->
+        <a *ngFor="let picturePath of markerData.odlagalisce.picturePaths" (click)="openImagePopup(picturePath)" class="image-container">
+            <img [src]="picturePath" alt="Image Preview" class="image-preview">
+        </a>
+        </div>
+    </div>
     <p *ngIf="markerData.odlagalisce.odpadkiZakopani">
         Velik del odpadkov je zakopanih
     </p>

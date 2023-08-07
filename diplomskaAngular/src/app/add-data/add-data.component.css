@@ -1,3 +1,32 @@
 .wide-input {
     width: 100%; /* You can adjust this value as needed */
   }
+
+/* Add this CSS to your component's CSS file or the global styles file */
+.image-container {
+  display: inline-block;
+  margin: 5px;
+  width: 200px; /* Set your desired width */
+  height: 120px; /* Set your desired height */
+  overflow: hidden;
+  position: relative;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This will make the image fill the container, cropping if necessary */
+}
+/* Style the "Remove" button */
+.remove-button {
+  position: absolute; /* Position the button absolutely within the container */
+  top: 5px; /* Adjust the top and right values as needed */
+  right: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+  border-radius: 50%;
+}
