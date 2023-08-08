@@ -1,16 +1,16 @@
 package com.example.DiplomskaSpringBoot.service;
 
-import com.example.DiplomskaSpringBoot.entity.Odlagalisca;
-import com.example.DiplomskaSpringBoot.repository.OdlagaliscaRepository;
-import org.springframework.stereotype.Service;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.io.ParseException;
-import org.locationtech.jts.io.WKBReader;
-import org.locationtech.jts.io.WKTWriter;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
+        import com.example.DiplomskaSpringBoot.entity.Odlagalisca;
+        import com.example.DiplomskaSpringBoot.repository.OdlagaliscaRepository;
+        import org.springframework.stereotype.Service;
+        import org.locationtech.jts.geom.Geometry;
+        import org.locationtech.jts.io.ParseException;
+        import org.locationtech.jts.io.WKBReader;
+        import org.locationtech.jts.io.WKTWriter;
+        import org.springframework.transaction.PlatformTransactionManager;
+        import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.List;
+        import java.util.List;
 
 @Service
 public class OdlagaliscaService {
@@ -90,4 +90,16 @@ public class OdlagaliscaService {
             return null;
         });
     }
+
+    public void deleteOdlagalisce(int markerId) {
+        // Perform the deletion
+        transactionTemplate.execute(status -> {
+            odlagaliscaRepository.deleteById(markerId);
+            return null;
+        });
+    }
+    public boolean odlagalisceExists(int markerId) {
+        return odlagaliscaRepository.findById(markerId).isPresent();
+    }
+
 }

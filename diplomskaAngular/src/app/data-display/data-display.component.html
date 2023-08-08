@@ -78,8 +78,11 @@
     <p *ngIf="markerData.odlagalisce.datumZadnjeSpremembe !== null">
         Datum zadnje spremembe: {{ markerData.odlagalisce.datumZadnjeSpremembe | date:'yyyy-MM-dd'}}
     </p>
-      
-
-
+    <!-- Add this section to display the "Edit" and "Delete" buttons for admin users -->
+    <div *ngIf="isAdminUser()">
+        <button (click)="editData()">Edit</button>
+        <button (click)="deleteData()">Delete</button>
+    </div>
+  
     <!-- Add more data properties as needed -->
   </div>

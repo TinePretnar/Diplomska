@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/odlagalisca")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class DiplomskaController {
 
     private final OdlagaliscaService odlagaliscaService;
@@ -57,9 +58,9 @@ public class DiplomskaController {
     }
 
     @PostMapping("/add")
-    public void addNewOdlagalisce(@RequestPart Odlagalisca newOdlagalisce, @RequestParam("images") MultipartFile[] images) {
+    public void addNewOdlagalisce(@RequestPart Odlagalisca newOdlagalisce,   @RequestParam(name = "images", required = false) MultipartFile[] images) {
         // Check if images were uploaded
-        if (images != null && images.length > 0) {
+        if (images != null && images.length > 0 && images[0] != null){
             String[] picturePaths = new String[images.length];
             // Save pictures locally and get their paths
             savePicturesOnServer(picturePaths, Arrays.asList(images));
@@ -69,7 +70,6 @@ public class DiplomskaController {
             // Set picturePaths to null if there are no images
             newOdlagalisce.setPicturePaths(null);
         }
-
         // Save the Odlagalisca entity with picture paths in the database
         odlagaliscaService.addNewOdlagalisce(newOdlagalisce);
     }
@@ -100,6 +100,20 @@ public class DiplomskaController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed: Incorrect email or password.");
         }
     }
+
+    @DeleteMapping("/delete/{markerId}")
+    public ResponseEntity<String> deleteOdlagalisce(@PathVariable int markerId) {
+        // Check if the marker exists
+        if (!odlagaliscaService.odlagalisceExists(markerId)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Odlagalisce not found.");
+        }
+
+        // Perform the deletion
+        odlagaliscaService.deleteOdlagalisce(markerId);
+
+        return ResponseEntity.ok("Odlagalisce deleted.");
+    }
+
 
     private void savePicturesOnServer(String[] picturePaths, List<MultipartFile> images) {
         try {

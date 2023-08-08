@@ -19,6 +19,7 @@ import { AddDataComponent } from './add-data/add-data.component'; // Import the 
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ImagePopupComponent } from './image-popup/image-popup.component';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 
 
@@ -31,7 +32,8 @@ import { ImagePopupComponent } from './image-popup/image-popup.component';
     RegistrationComponent,
     LoginComponent,
     AddDataComponent,
-    ImagePopupComponent
+    ImagePopupComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ImagePopupComponent } from '../image-popup/image-popup.component';
+import { UserService } from '../user.service';
+import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
+import { DataService } from '../data.service';
+import { MapComponent } from '../map/map.component'; 
+
 
 @Component({
   selector: 'app-data-display',
@@ -19,7 +24,7 @@ export class DataDisplayComponent {
     this.closeDataDisplayEvent.emit();
   }
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private userService: UserService, private dataService: DataService, private mapComponent: MapComponent) {}
 
   openImagePopup(imagePath: string): void {
     // Open the image popup using the Angular Material Dialog and pass data
@@ -31,5 +36,41 @@ export class DataDisplayComponent {
     dialogRef.afterClosed().subscribe(() => {
       console.log('Image popup closed');
     });
-  } 
+  }
+  
+  isAdminUser(): boolean {
+    return this.userService.getUserData()?.admin === true;
+  }
+  editData(): void {
+    // Implement the logic for editing data here
+  }
+  
+  deleteData(): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent);
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Call a function to handle the actual marker deletion
+        this.deleteMarker();
+      }
+    });
+  }
+  deleteMarker() {
+    const markerId = this.markerData.odlagalisce.id;
+    const XD = this.dataService.deleteOdlagalisce(markerId);
+    this.dataService.deleteOdlagalisce(markerId).subscribe(
+      response => {
+        // Handle successful deletion (e.g., update UI, refresh data, etc.)
+        console.log('Marker deleted successfully', response);
+        this.mapComponent.refreshMapDisplay();
+        this.closeDataDisplay()
+      },
+      error => {
+        // Handle error
+        console.error('Error deleting marker', error);
+        this.mapComponent.refreshMapDisplay();
+        this.closeDataDisplay()
+      }
+    );
+  }
 }

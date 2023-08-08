@@ -23,6 +23,9 @@ export class DataService {
     const jsonDataBlob = new Blob([JSON.stringify(formData.newOdlagalisce)], { type: 'application/json' });
     formDataObj.append('newOdlagalisce', jsonDataBlob);
   
+    // Always append an empty array for the "images" parameter
+    formDataObj.append('images', JSON.stringify([]));
+  
     // Append each image as a separate part in the FormData
     for (const image of formData.images) {
       formDataObj.append('images', image, image.name);
@@ -30,4 +33,11 @@ export class DataService {
   
     return this.http.post<any>(`${this.baseUrl}/odlagalisca/add`, formDataObj);
   }
+  
+  
+  deleteOdlagalisce(markerId: number): Observable<any> {
+    console.log(markerId)
+    return this.http.delete<any>(`${this.baseUrl}/odlagalisca/delete/${markerId}`);
+  }
+  
 }

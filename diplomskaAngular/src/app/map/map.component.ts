@@ -175,6 +175,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     // Add an EventEmitter property
     closeDataDisplayEvent: EventEmitter<void> = new EventEmitter();
+    refreshMapEvent: EventEmitter<void> = new EventEmitter<void>();
    
     // Method to handle the close button click
    closeDataDisplay() {
@@ -291,6 +292,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           latLng: new google.maps.LatLng(this.selectedMarkerData.coordinates.lat, this.selectedMarkerData.coordinates.lng)
         });
       });
+      this.refreshMapDisplay();
     }
     
     onAddDataClose() {
@@ -310,6 +312,21 @@ export class MapComponent implements OnInit, AfterViewInit {
         });
       }
     }
+
+    refreshMapDisplay() {
+      this.dataService.getOdlagalisca().subscribe(
+        data => {
+          console.log(data); // Print the received data in the browser console
+          this.odlagaliscaList = data;
+          this.displayOdlagalisca(this.odlagaliscaList); // Update the markers on the map
+          this.refreshMapEvent.emit(); // Emit the event after updating the markers
+        },
+        error => {
+          console.log(error); // Handle error if any
+        }
+      );
+    }
+    
 }
     
   
