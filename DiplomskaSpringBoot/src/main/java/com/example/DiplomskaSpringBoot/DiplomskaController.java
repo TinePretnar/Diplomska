@@ -114,6 +114,37 @@ public class DiplomskaController {
         return ResponseEntity.ok("Odlagalisce deleted.");
     }
 
+    @PutMapping("/update/{odlagalisceId}")
+    public ResponseEntity<String> updateOdlagalisce(@PathVariable int odlagalisceId,
+                                                    @RequestPart Odlagalisca updatedOdlagalisce,
+                                                    @RequestParam(name = "images", required = false) MultipartFile[] images) {
+        // Check if the odlagališče exists
+        if (!odlagaliscaService.odlagalisceExists(odlagalisceId)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Odlagališče not found.");
+        }
+        // Get the existing odlagališče
+        Odlagalisca existingOdlagalisce = odlagaliscaService.getOdlagalisceById(odlagalisceId);
+        deleteOldImages(existingOdlagalisce, updatedOdlagalisce.getPicturePaths());
+        // Check if images were uploaded
+        if (images != null && images.length > 0 && images[0] != null) {
+            String[] newPicturePaths = new String[images.length];
+            // Save pictures locally and get their paths
+            savePicturesOnServer(newPicturePaths, Arrays.asList(images));
+
+            // Append new picture paths to existing picture paths
+            String[] updatedPicturePaths = Arrays.copyOf(updatedOdlagalisce.getPicturePaths(), updatedOdlagalisce.getPicturePaths().length + newPicturePaths.length);
+            System.arraycopy(newPicturePaths, 0, updatedPicturePaths, updatedOdlagalisce.getPicturePaths().length, newPicturePaths.length);
+            updatedOdlagalisce.setPicturePaths(updatedPicturePaths);
+        }
+
+        // Update the odlagališče in the database
+        odlagaliscaService.updateOdlagalisce(odlagalisceId, updatedOdlagalisce);
+
+        return ResponseEntity.ok("Odlagališče updated.");
+    }
+
+
+
 
     private void savePicturesOnServer(String[] picturePaths, List<MultipartFile> images) {
         try {
@@ -133,6 +164,32 @@ public class DiplomskaController {
             // Handle any errors that occur during file saving
             e.printStackTrace();
             // You can also throw an exception or return an error response if needed
+        }
+    }
+
+    private void deleteOldImages(Odlagalisca odlagalisce, String[] newPicturePaths) {
+        // Get the existing picture paths from the odlagališče entity
+        String[] existingPicturePaths = odlagalisce.getPicturePaths();
+
+        // Compare existing picture paths with new picture paths
+        for (String existingPicturePath : existingPicturePaths) {
+            boolean pathExistsInNewPaths = Arrays.stream(newPicturePaths).anyMatch(newPath -> newPath.equals(existingPicturePath));
+            if (!pathExistsInNewPaths) {
+                // Delete the old image file
+                String fileName = existingPicturePath.substring(existingPicturePath.lastIndexOf("/") + 1);
+                deleteImageFromServer(fileName);
+            }
+        }
+    }
+
+    private void deleteImageFromServer(String fileName) {
+        String filePath = "C:/Users/tine/Desktop/Diplomska/DiplomskaSpringBoot/src/main/java/com/example/DiplomskaSpringBoot/uploads/" + fileName;
+        Path imagePath = Paths.get(filePath);
+        try {
+            Files.delete(imagePath);
+        } catch (IOException e) {
+            // Handle any errors that occur during image deletion
+            e.printStackTrace();
         }
     }
 

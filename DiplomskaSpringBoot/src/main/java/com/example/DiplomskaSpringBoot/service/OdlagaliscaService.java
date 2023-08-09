@@ -102,4 +102,46 @@ public class OdlagaliscaService {
         return odlagaliscaRepository.findById(markerId).isPresent();
     }
 
+    public Odlagalisca getOdlagalisceById(int odlagalisceId) {
+        return odlagaliscaRepository.findById(odlagalisceId)
+                .orElse(null); // Return null if the odlagališče doesn't exist
+    }
+
+
+    public void updateOdlagalisce(int odlagalisceId, Odlagalisca newOdlagalisce) {
+        transactionTemplate.execute(status -> {
+            odlagaliscaRepository.updateOdlagalisce(
+                    odlagalisceId,
+                    newOdlagalisce.getNaziv(),
+                    newOdlagalisce.getGeometry(),
+                    newOdlagalisce.getDostop(),
+                    newOdlagalisce.getOddaljenostOdCesteVMetrih(),
+                    newOdlagalisce.getLega(),
+                    newOdlagalisce.getPovrsina(),
+                    newOdlagalisce.getProstornina(),
+                    newOdlagalisce.getOrganskiOdpadki(),
+                    newOdlagalisce.getGradbeniOdpadki(),
+                    newOdlagalisce.getKomunalniOdpadki(),
+                    newOdlagalisce.getKosovniOdpadki(),
+                    newOdlagalisce.getPnevmatike(),
+                    newOdlagalisce.getMotornaVozila(),
+                    newOdlagalisce.getSalonitnePlosce(),
+                    newOdlagalisce.getNevarniOdpadki(),
+                    newOdlagalisce.isNevarnaNeznanaTekocina(),
+                    newOdlagalisce.getOpisNevarnihOdpadkov(),
+                    newOdlagalisce.isOdpadkiZakopani(),
+                    newOdlagalisce.getOpombe(),
+                    newOdlagalisce.getObcina(),
+                    newOdlagalisce.getOcenaPomembnosti(),
+                    newOdlagalisce.isOcisceno(),
+                    newOdlagalisce.getDatumVnosaVRegister(),
+                    newOdlagalisce.getDatumZadnjeSpremembe(),
+                    newOdlagalisce.isNepotrjen(),
+                    newOdlagalisce.getPicturePaths()
+            );
+            return null;
+        });
+    }
+
+
 }

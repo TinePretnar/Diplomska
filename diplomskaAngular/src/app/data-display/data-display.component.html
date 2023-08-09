@@ -4,6 +4,9 @@
     <p *ngIf="markerData.odlagalisce.naziv !== null">
         Naziv: {{ markerData.odlagalisce.naziv }}
     </p>
+    <p *ngIf="markerData.odlagalisce.nepotrjen == true">
+        To odlagališče je nepotrjeno
+    </p>
     <p *ngIf="markerData.odlagalisce.ocisceno; else notOcisceno">Ocisceno</p>
     <ng-template #notOcisceno>Ni ocisceno</ng-template>
     <p *ngIf="markerData.odlagalisce.dostop !== null">
@@ -83,6 +86,14 @@
         <button (click)="editData()">Edit</button>
         <button (click)="deleteData()">Delete</button>
     </div>
+
+    <div class="empty-space"></div>
+
+    <app-edit-data
+    *ngIf="showEditPanel"
+    [markerData]="markerData"
+    (cancelEditEvent)="cancelEditHandler()"
+    ></app-edit-data>
   
     <!-- Add more data properties as needed -->
   </div>

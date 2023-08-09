@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsMod
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ImagePopupComponent } from './image-popup/image-popup.component';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
+import { EditDataComponent } from './edit-data/edit-data.component';
 
 
 
@@ -33,7 +34,8 @@ import { DeleteConfirmationComponent } from './delete-confirmation/delete-confir
     LoginComponent,
     AddDataComponent,
     ImagePopupComponent,
-    DeleteConfirmationComponent
+    DeleteConfirmationComponent,
+    EditDataComponent
   ],
   imports: [
     BrowserModule,

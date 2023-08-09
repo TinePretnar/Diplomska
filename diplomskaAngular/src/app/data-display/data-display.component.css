@@ -20,14 +20,6 @@
   flex-wrap: wrap;
 }
 
-/* Adjust the width and height of the image previews as per your requirement */
-.image-preview {
-  width: 150px;
-  height: 150px;
-  margin: 5px;
-  cursor: pointer;
-}
-
 /* Add this CSS to your component's CSS file or the global styles file */
 .image-container {
   display: inline-block;
@@ -43,4 +35,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover; /* This will make the image fill the container, cropping if necessary */
+}
+
+app-edit-data {
+  position: fixed;
+  top: 80px;
+  left: 0; /* Position the component on the right */
+  width: 300px; /* Adjust the width of the component */
+  max-height: calc(100vh - 80px); /* Set maximum height to cover the full viewport height */
+  background-color: #538fa5; /* Optional: Set a background color to the component */
+  padding: 10px; /* Optional: Add padding for better visibility */
+  z-index: 3; /* Make the component appear above other elements */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.empty-space {
+  height: 20px; /* Adjust the height as needed */
 }

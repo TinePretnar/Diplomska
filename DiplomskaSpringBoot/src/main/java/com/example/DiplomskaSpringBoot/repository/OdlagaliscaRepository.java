@@ -57,5 +57,54 @@ public interface OdlagaliscaRepository extends JpaRepository<Odlagalisca, Intege
             @Param("nepotrjen") boolean nepotrjen,
             @Param("picturePaths") String[] picturePaths
     );
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE dataodlagalisca.registerdivjihodlagalisc " +
+            "SET naziv = :naziv, geometry = public.ST_GeomFromText(:geometry), dostop = :dostop, " +
+            "\"oddaljenost od ceste [m]\" = :oddaljenostOdCesteVMetrih, lega = :lega, " +
+            "\"površina [m2]\" = :povrsina, prostornina = :prostornina, " +
+            "\"organski odpadki %\" = :organskiOdpadki, \"gradbeni odpadki %\" = :gradbeniOdpadki, " +
+            "\"komunalni odpadki %\" = :komunalniOdpadki, \"kosovni odpadki %\" = :kosovniOdpadki, " +
+            "\"pnevmatike %\" = :pnevmatike, \"motorna vozila %\" = :motornaVozila, " +
+            "\"salonitne plošče %\" = :salonitnePlosce, \"nevarni odpadki %\" = :nevarniOdpadki, " +
+            "\"sodi z nevarno/neznano tekočino\" = :nevarnaNeznanaTekocina, " +
+            "\"opis in količina nevarnih odpadkov\" = :opisNevarnihOdpadkov, " +
+            "\"velik del odpadkov je zakopanih?\" = :odpadkiZakopani, opombe = :opombe, " +
+            "občina = :obcina, \"ocena pomembnosti\" = :ocenaPomembnosti, očiščeno = :ocisceno, " +
+            "\"datum vnosa v register\" = :datumVnosaVRegister, " +
+            "\"datum zadnje spremembe\" = :datumZadnjeSpremembe, nepotrjen = :nepotrjen, " +
+            "picture_paths = :picturePaths " +
+            "WHERE _id_ = :odlagalisceId",
+            nativeQuery = true)
+    void updateOdlagalisce(
+            @Param("odlagalisceId") int odlagalisceId,
+            @Param("naziv") String naziv,
+            @Param("geometry") String geometry,
+            @Param("dostop") String dostop,
+            @Param("oddaljenostOdCesteVMetrih") Double oddaljenostOdCesteVMetrih,
+            @Param("lega") String lega,
+            @Param("povrsina") Double povrsina,
+            @Param("prostornina") String prostornina,
+            @Param("organskiOdpadki") Double organskiOdpadki,
+            @Param("gradbeniOdpadki") Double gradbeniOdpadki,
+            @Param("komunalniOdpadki") Double komunalniOdpadki,
+            @Param("kosovniOdpadki") Double kosovniOdpadki,
+            @Param("pnevmatike") Double pnevmatike,
+            @Param("motornaVozila") Double motornaVozila,
+            @Param("salonitnePlosce") Double salonitnePlosce,
+            @Param("nevarniOdpadki") Double nevarniOdpadki,
+            @Param("nevarnaNeznanaTekocina") boolean nevarnaNeznanaTekocina,
+            @Param("opisNevarnihOdpadkov") String opisNevarnihOdpadkov,
+            @Param("odpadkiZakopani") boolean odpadkiZakopani,
+            @Param("opombe") String opombe,
+            @Param("obcina") String obcina,
+            @Param("ocenaPomembnosti") Double ocenaPomembnosti,
+            @Param("ocisceno") boolean ocisceno,
+            @Param("datumVnosaVRegister") Timestamp datumVnosaVRegister,
+            @Param("datumZadnjeSpremembe") Timestamp datumZadnjeSpremembe,
+            @Param("nepotrjen") boolean nepotrjen,
+            @Param("picturePaths") String[] picturePaths
+    );
 }
 

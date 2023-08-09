@@ -7,6 +7,7 @@ import { DataService } from '../data.service';
 import { MapComponent } from '../map/map.component'; 
 
 
+
 @Component({
   selector: 'app-data-display',
   templateUrl: './data-display.component.html',
@@ -26,6 +27,9 @@ export class DataDisplayComponent {
 
   constructor(private dialog: MatDialog, private userService: UserService, private dataService: DataService, private mapComponent: MapComponent) {}
 
+  showEditPanel = false;
+
+
   openImagePopup(imagePath: string): void {
     // Open the image popup using the Angular Material Dialog and pass data
     const dialogRef = this.dialog.open(ImagePopupComponent, {
@@ -42,8 +46,14 @@ export class DataDisplayComponent {
     return this.userService.getUserData()?.admin === true;
   }
   editData(): void {
-    // Implement the logic for editing data here
+    this.showEditPanel = true;
   }
+  
+  // Method to handle the cancel event from the EditDataComponent
+  cancelEditHandler(): void {
+    this.showEditPanel = false;
+  }
+  
   
   deleteData(): void {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent);
