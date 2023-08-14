@@ -1,0 +1,27 @@
+/* Add vertical margin to form fields */
+mat-form-field {
+    margin-bottom: 16px;
+  }
+  
+  /* Add padding to the form */
+  form {
+    padding: 16px;
+  }
+  
+  /* Center the form content vertically */
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  /* Add margin to the buttons */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    width: 100%;
+  }
+  

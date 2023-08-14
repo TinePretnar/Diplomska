@@ -56,7 +56,10 @@ export class DataDisplayComponent {
   
   
   deleteData(): void {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent);
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '400px',
+      disableClose: true,
+    });
     
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -82,9 +82,9 @@
         Datum zadnje spremembe: {{ markerData.odlagalisce.datumZadnjeSpremembe | date:'yyyy-MM-dd'}}
     </p>
     <!-- Add this section to display the "Edit" and "Delete" buttons for admin users -->
-    <div *ngIf="isAdminUser()">
-        <button (click)="editData()">Edit</button>
-        <button (click)="deleteData()">Delete</button>
+    <div *ngIf="isAdminUser()" class="button-container">
+        <button (click)="editData()">Uredi</button>
+        <button (click)="deleteData()">Odstrani</button>
     </div>
 
     <div class="empty-space"></div>

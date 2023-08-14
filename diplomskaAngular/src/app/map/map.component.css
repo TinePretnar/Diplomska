@@ -1,7 +1,7 @@
 /* Position the map container */
 .map-container {
   position: absolute;
-  top: 80px; /* Adjust the value to leave space at the top */
+  top: 0; /* Adjust the value to leave space at the top */
   left: 0; /* Adjust the value to leave space at the left */
   right: 0;
   bottom: 0;
@@ -19,10 +19,10 @@
 
 app-data-display {
   position: absolute;
-  top: 80px; /* Adjust the value to leave space at the top */
+  top: 70px; /* Adjust the value to leave space at the top */
   left: 0; /* Position the component on the left */
   width: 300px; /* Adjust the width of the component */
-  max-height: calc(100vh - 80px); /* Set a maximum height to prevent full-page scrolling */
+  max-height: calc(100vh - 70px); /* Set a maximum height to prevent full-page scrolling */
   background-color: #eaf2f5; /* Optional: Set a background color to the component */
   padding: 10px; /* Optional: Add padding for better visibility */
   z-index: 2; /* Make the component appear above the map */
@@ -32,26 +32,40 @@ app-data-display {
 .registration-button-container {
   position: absolute;
   top: 10px; /* Adjust the top position as needed */
-  right: 10px; /* Adjust the right position as needed */
+  right: 50px; /* Adjust the right position as needed */
   z-index: 3; /* Ensure the button is above other elements */
 }
 
-.add-marker-button-container {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
+/* Add margin to the buttons */
+.registration-button-container button {
+  margin-right: 15px; /* Adjust the margin as needed */
+  height: 40px; /* Adjust the height as needed */
+  min-width: 120px; /* Adjust the width as needed */
+  font-size: 16px;
+  background-color: #ffffff; /* Change this color to your desired background color */
+  border: none; /* Remove the border */
+  border-radius: 4px; /* Add rounded corners */
+  cursor: pointer; /* Show pointer cursor on hover */
 }
+
+
 
 app-add-data {
   position: absolute;
-  top: 80px; /* Adjust the value to leave space at the top */
+  top: 70px; /* Adjust the value to leave space at the top */
   left: 0; /* Position the component on the right */
   width: 300px; /* Adjust the width of the component */
-  max-height: calc(100vh - 80px); /* Set a maximum height to prevent full-page scrolling */
+  max-height: calc(100vh - 70px); /* Set a maximum height to prevent full-page scrolling */
   background-color: #538fa5; /* Optional: Set a background color to the component */
   padding: 10px; /* Optional: Add padding for better visibility */
   z-index: 3; /* Make the component appear above the map */
   overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.filters {
+  position: absolute;
+  bottom: 20px; /* Adjust the distance from the bottom edge */
+  right: 55px; /* Adjust the distance from the right edge */
+  z-index: 3; /* Make the component appear above the map */
+  background-color: rgba(255, 255, 255, 0.6); /* Set the desired background color with opacity */
 }

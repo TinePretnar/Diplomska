@@ -17,7 +17,15 @@
       Odlagališča z nevarnimi odpadki
     </label>
   </div>
+  <div class="checkbox-item">
+    <label>
+      <input type="checkbox" [(ngModel)]="showNepotrjenTrue" (change)="updateMarkers()" />
+      Nepotrjena odlagališča
+    </label>
+  </div>
 </div>
+
+
 
 <div #mapContainer class="map-container"></div>
 
@@ -39,13 +47,9 @@
 
   <!-- Show user email and logout button if user is logged in -->
   <div *ngIf="userService.isLoggedIn()" class="user-info-container">
-    <span>{{ userService.getUserData()?.email }}</span>
+    <button mat-raised-button color="primary" [disabled]="isDataDisplayVisibleAddMarker" (click)="onAddMarker()">Dodaj odlagališče</button>
     <button mat-raised-button color="warn" (click)="logout()">Odjava</button>
   </div>
-</div>
-
-<div class="add-marker-button-container" *ngIf="userService.isLoggedIn()">
-  <button mat-raised-button color="primary" [disabled]="isDataDisplayVisibleAddMarker" (click)="onAddMarker()">Dodaj odlagališče</button>
 </div>
 
 <!-- Show the AddDataComponent when isDataDisplayVisibleAddMarker is true -->

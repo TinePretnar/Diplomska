@@ -34,3 +34,29 @@
 .empty-space {
     height: 20px; /* Adjust the height as needed */
   }
+
+  /* Add margin to the buttons */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    width: 100%;
+  }
+
+/* Style the custom file upload button */
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #f7fbff; /* Use your desired background color */
+  color: #000; /* Use your desired text color */
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Hide the default file input */
+input[type="file"] {
+  display: none;
+}
+
+  

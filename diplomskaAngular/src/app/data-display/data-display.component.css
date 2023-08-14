@@ -39,10 +39,10 @@
 
 app-edit-data {
   position: fixed;
-  top: 80px;
+  top: 70px;
   left: 0; /* Position the component on the right */
   width: 300px; /* Adjust the width of the component */
-  max-height: calc(100vh - 80px); /* Set maximum height to cover the full viewport height */
+  max-height: calc(100vh - 70px); /* Set maximum height to cover the full viewport height */
   background-color: #538fa5; /* Optional: Set a background color to the component */
   padding: 10px; /* Optional: Add padding for better visibility */
   z-index: 3; /* Make the component appear above other elements */
@@ -52,3 +52,12 @@ app-edit-data {
 .empty-space {
   height: 20px; /* Adjust the height as needed */
 }
+
+  /* Add margin to the buttons */
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    width: 100%;
+  }
+  

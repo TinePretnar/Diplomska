@@ -1,4 +1,6 @@
-<h2>Delete Confirmation</h2>
-<p>Are you sure you want to delete this marker?</p>
-<button (click)="confirmDelete()">Yes</button>
-<button (click)="cancelDelete()">No</button>
+<h2 class="confirmation-title">Potrditev izbrisa</h2>
+<p class="confirmation-message">Ali ste prepričani, da hočete izbrisati to odlagališče?</p>
+<div class="button-container">
+    <button (click)="confirmDelete()">Da</button>
+    <button (click)="cancelDelete()">Ne</button>
+</div>

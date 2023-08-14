@@ -104,7 +104,10 @@
     Tukaj lahko naložite slike divjega odlagališča
   </p>
   <div>
-    <input type="file" (change)="onImageSelected($event)" multiple>
+    <label for="fileInput" class="custom-file-upload">
+      <input type="file" id="fileInput" (change)="onImageSelected($event)" multiple>
+      Naloži slike
+    </label>
   </div>
 
     <div>
@@ -160,8 +163,10 @@
     </p>
     
     <!-- Buttons to save or cancel the new odlagališče -->
-    <button mat-raised-button color="primary" (click)="updateData()">Posodobi podatke</button>
-    <button mat-raised-button (click)="cancel()">Prekliči</button>
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="updateData()">Posodobi podatke</button>
+      <button mat-raised-button (click)="cancel()">Prekliči</button>
+    </div>
 
     <div class="empty-space"></div>
   </div>

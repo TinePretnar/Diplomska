@@ -149,13 +149,11 @@ export class EditDataComponent implements OnInit, OnChanges {
         console.log('Odlagališče updated successfully:', response);
         // Emit the dataAdded event with the updated odlagališče data
         this.dataAdded.emit(response);
-        this.mapComponent.refreshMapDisplay();
         // Close the dialog after data is updated
         this.cancel();
       },
       (error) => {
         console.error('Error updating odlagališče:', error);
-        this.mapComponent.refreshMapDisplay();
         this.cancel();
       }
     );
@@ -163,6 +161,7 @@ export class EditDataComponent implements OnInit, OnChanges {
 
   // Method to cancel and close the dialog
   cancel() {
+    this.mapComponent.refreshMapDisplay();
     // Emit the closeDialog event to notify the parent component to close the dialog
     this.cancelEditEvent.emit();
   }

@@ -1,0 +1,16 @@
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center buttons vertically */
+    margin-top: 16px;
+    padding: 10px;
+    width: 90%;
+  }
+
+  .confirmation-title {
+    padding: 5px; /* Add padding at the bottom of h2 */
+  }
+  
+  .confirmation-message {
+    padding: 5px; /* Add padding at the bottom of p */
+  }

@@ -25,6 +25,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   selectedMarkerData: any;
   isDataDisplayVisible = false;
   isDataDisplayVisibleAddMarker = false;
+  showNepotrjenTrue = true;
+
 
 
   user: any; // Store the authenticated user information
@@ -134,6 +136,46 @@ export class MapComponent implements OnInit, AfterViewInit {
   
       return marker;
     } else {
+      if(odlagalisce.nevarniOdpadki !== null && odlagalisce.nepotrjen == false){
+        const iconUrl = 'assets/trashbagDanger.png';
+        const iconSize = new google.maps.Size(32, 32); // Set the desired size of the icon image
+    
+        const marker = new google.maps.Marker({
+          position: coordinates,
+          map: this.map,
+          icon: {
+            url: iconUrl,
+            scaledSize: iconSize,
+          },
+        });
+    
+        // Add a click event listener to the marker
+        marker.addListener('click', () => {
+          this.onMarkerClick(odlagalisce, coordinates);
+        });
+    
+        return marker;
+      }
+      if(odlagalisce.nevarniOdpadki === null && odlagalisce.nepotrjen == false){
+        const iconUrl = 'assets/trash.png';
+        const iconSize = new google.maps.Size(32, 32); // Set the desired size of the icon image
+    
+        const marker = new google.maps.Marker({
+          position: coordinates,
+          map: this.map,
+          icon: {
+            url: iconUrl,
+            scaledSize: iconSize,
+          },
+        });
+    
+        // Add a click event listener to the marker
+        marker.addListener('click', () => {
+          this.onMarkerClick(odlagalisce, coordinates);
+        });
+    
+        return marker;
+      }
       // For ocisceno == false, omit the icon property to use the default Google Maps icon
       const marker = new google.maps.Marker({
         position: coordinates,
@@ -157,15 +199,24 @@ export class MapComponent implements OnInit, AfterViewInit {
       const coordinates = this.parseGeometryString(geometryString);
       const ocisceno = odlagalisce.ocisceno;
       const nevarniOdpadki = odlagalisce.nevarniOdpadki;
+      const nepotrjen = odlagalisce.nepotrjen;
   
-      if ((ocisceno && this.showOciscenoTrue) ||
-          (!ocisceno && nevarniOdpadki === null && this.showOciscenoFalse) ||
-          (nevarniOdpadki !== null && !ocisceno && this.showNevarniOdpadki)) {
+      if (nepotrjen && this.showNepotrjenTrue) {
         const marker = this.addMarker(odlagalisce, coordinates);
         this.markers.push(marker);
+      } else if (!nepotrjen) {
+        if (
+          (ocisceno && this.showOciscenoTrue) ||
+          (!ocisceno && nevarniOdpadki === null && this.showOciscenoFalse) ||
+          (nevarniOdpadki !== null && !ocisceno && this.showNevarniOdpadki)
+        ) {
+          const marker = this.addMarker(odlagalisce, coordinates);
+          this.markers.push(marker);
+        }
       }
     }
   }
+  
   onMarkerClick(odlagalisce: any, coordinates: { lat: number; lng: number }) {
     console.log('Marker Clicked:', odlagalisce, coordinates); // Add this line to log odlagalisce and coordinates to the console
     const markerData = { odlagalisce, coordinates }; // Create an object to hold both odlagalisce and coordinates
@@ -201,7 +252,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     openRegistrationDialog(): void {
       const dialogRef = this.dialog.open(RegistrationComponent, {
-        width: '500px',
+        width: '450px',
         disableClose: true,
       });
     
@@ -212,7 +263,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
     openLoginDialog(): void {
       const dialogRef = this.dialog.open(LoginComponent, {
-        width: '500px',
+        width: '450px',
         disableClose: true,
       });
     
