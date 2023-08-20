@@ -1,0 +1,22 @@
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: #555;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    z-index: 1; /* Ensure the button appears above the popup */
+  }
+  
+.close-button:hover {
+    color: #f00; /* Optional: Change the color on hover */
+}
+
+.popup {
+    padding: 10px; /* Optional: Add padding for better visibility */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+

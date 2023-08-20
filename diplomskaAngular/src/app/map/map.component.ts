@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RegistrationComponent } from '../registration/registration.component';
 import { LoginComponent } from '../login/login.component';
 import { UserService } from '../user.service'; // Import the UserService
-import { AddDataComponent } from '../add-data/add-data.component';
+import { InstructionsPopupComponent } from '../instructions-popup/instructions-popup.component';
 
 declare const google: any;
 
@@ -376,6 +376,17 @@ export class MapComponent implements OnInit, AfterViewInit {
           console.log(error); // Handle error if any
         }
       );
+    }
+
+    openInstructionsDialog(): void {
+      const dialogRef = this.dialog.open(InstructionsPopupComponent, {
+        width: '1000px', // Adjust the width as needed
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        // Handle any actions after the dialog is closed, if needed
+        console.log('Instructions dialog closed:', result);
+      });
     }
     
 }

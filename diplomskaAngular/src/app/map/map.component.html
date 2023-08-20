@@ -1,3 +1,26 @@
+<div class="header">
+  <h1 class="title">DIVJA ODLAGALIŠČA V SLOVENIJI</h1>
+  <div class="registration-button-container">
+    <!-- Show login and registration buttons if user is not logged in -->
+    <button *ngIf="!userService.isLoggedIn()" mat-raised-button color="primary" (click)="openRegistrationDialog()">
+      Registracija
+    </button>
+    <button *ngIf="!userService.isLoggedIn()" mat-raised-button color="primary" (click)="openLoginDialog()">
+      Prijava
+    </button>
+  
+    <!-- Show user email and logout button if user is logged in -->
+    <div *ngIf="userService.isLoggedIn()" class="user-info-container">
+      <button mat-raised-button color="primary" [disabled]="isDataDisplayVisibleAddMarker" (click)="onAddMarker()">Dodaj odlagališče</button>
+      <button mat-raised-button color="warn" (click)="logout()">Odjava</button>
+    </div>
+  </div>
+  
+  <div class="instructions-button-container">
+    <button mat-raised-button color="primary" (click)="openInstructionsDialog()">Pomoč</button>
+  </div>
+</div>
+
 <div class="filters">
   <div class="checkbox-item">
     <label>
@@ -27,37 +50,22 @@
 
 
 
-<div #mapContainer class="map-container"></div>
-
-<app-data-display
-  *ngIf="isDataDisplayVisible"
-  [markerData]="selectedMarkerData"
-  [isDataDisplayVisible]="isDataDisplayVisible"
-  (closeDataDisplayEvent)="closeDataDisplay()"
-></app-data-display>
-
-<div class="registration-button-container">
-  <!-- Show login and registration buttons if user is not logged in -->
-  <button *ngIf="!userService.isLoggedIn()" mat-raised-button color="primary" (click)="openRegistrationDialog()">
-    Registracija
-  </button>
-  <button *ngIf="!userService.isLoggedIn()" mat-raised-button color="primary" (click)="openLoginDialog()">
-    Prijava
-  </button>
-
-  <!-- Show user email and logout button if user is logged in -->
-  <div *ngIf="userService.isLoggedIn()" class="user-info-container">
-    <button mat-raised-button color="primary" [disabled]="isDataDisplayVisibleAddMarker" (click)="onAddMarker()">Dodaj odlagališče</button>
-    <button mat-raised-button color="warn" (click)="logout()">Odjava</button>
-  </div>
+<div class="content-container">
+  <div #mapContainer class="map-container"></div>
 </div>
 
-<!-- Show the AddDataComponent when isDataDisplayVisibleAddMarker is true -->
-<app-add-data
-  *ngIf="isDataDisplayVisibleAddMarker"
-  [markerData]="selectedMarkerData"
-  (markerDataChange)="updateMarkerData($event)" 
-  (dataAdded)="onDataAdded()"
-  (closeDialog)="onAddDataClose()"
-></app-add-data>
+  <app-data-display
+    *ngIf="isDataDisplayVisible"
+    [markerData]="selectedMarkerData"
+    [isDataDisplayVisible]="isDataDisplayVisible"
+    (closeDataDisplayEvent)="closeDataDisplay()"
+  ></app-data-display>
+  <!-- Show the AddDataComponent when isDataDisplayVisibleAddMarker is true -->
+  <app-add-data
+    *ngIf="isDataDisplayVisibleAddMarker"
+    [markerData]="selectedMarkerData"
+    (markerDataChange)="updateMarkerData($event)" 
+    (dataAdded)="onDataAdded()"
+    (closeDialog)="onAddDataClose()"
+  ></app-add-data>
 

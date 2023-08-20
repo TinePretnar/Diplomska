@@ -32,7 +32,7 @@ app-data-display {
 .registration-button-container {
   position: absolute;
   top: 10px; /* Adjust the top position as needed */
-  right: 50px; /* Adjust the right position as needed */
+  right: 165px; /* Adjust the right position as needed */
   z-index: 3; /* Ensure the button is above other elements */
 }
 
@@ -41,6 +41,24 @@ app-data-display {
   margin-right: 15px; /* Adjust the margin as needed */
   height: 40px; /* Adjust the height as needed */
   min-width: 120px; /* Adjust the width as needed */
+  font-size: 16px;
+  background-color: #ffffff; /* Change this color to your desired background color */
+  border: none; /* Remove the border */
+  border-radius: 4px; /* Add rounded corners */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+.instructions-button-container {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  right: 50px; /* Adjust the right position for other buttons */
+  z-index: 3; /* Ensure the button is above other elements */
+}
+
+/* Add margin to the buttons */
+.instructions-button-container button {
+  margin-right: 15px; /* Adjust the margin as needed */
+  height: 40px; /* Adjust the height as needed */
+  min-width: 100px; /* Adjust the width as needed */
   font-size: 16px;
   background-color: #ffffff; /* Change this color to your desired background color */
   border: none; /* Remove the border */
@@ -68,4 +86,35 @@ app-add-data {
   right: 55px; /* Adjust the distance from the right edge */
   z-index: 3; /* Make the component appear above the map */
   background-color: rgba(255, 255, 255, 0.6); /* Set the desired background color with opacity */
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px; /* Increase the height as needed */
+  background-color: #333; /* Dark background color for the header */
+  color: white; /* Text color for the header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 4; /* Ensure the header is above other elements */
+}
+
+/* Style the title */
+.title {
+  font-size: 24px;
+  margin: 0;
+  padding-left: 40px;
+}
+
+.content-container {
+  position: absolute;
+  top: 60px; /* Adjust the top position to leave space for the header */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 }

@@ -21,6 +21,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { ImagePopupComponent } from './image-popup/image-popup.component';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 import { EditDataComponent } from './edit-data/edit-data.component';
+import { InstructionsPopupComponent } from './instructions-popup/instructions-popup.component';
 
 
 
@@ -35,7 +36,8 @@ import { EditDataComponent } from './edit-data/edit-data.component';
     AddDataComponent,
     ImagePopupComponent,
     DeleteConfirmationComponent,
-    EditDataComponent
+    EditDataComponent,
+    InstructionsPopupComponent
   ],
   imports: [
     BrowserModule,
