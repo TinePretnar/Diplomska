@@ -90,6 +90,8 @@ public class DiplomskaController {
     @PostMapping("/user/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         User storedUser = userService.getUserByEmail(user.getEmail());
+        System.out.println(storedUser.getEmail());
+        System.out.println(storedUser.getPassword());
 
         if (storedUser != null && PasswordHasher.verifyPassword(user.getPassword(), storedUser.getPassword())) {
             // If email and password match, return the user object (exclude the password for security)
