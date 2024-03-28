@@ -173,16 +173,20 @@ public class DiplomskaController {
         // Get the existing picture paths from the odlagališče entity
         String[] existingPicturePaths = odlagalisce.getPicturePaths();
 
-        // Compare existing picture paths with new picture paths
-        for (String existingPicturePath : existingPicturePaths) {
-            boolean pathExistsInNewPaths = Arrays.stream(newPicturePaths).anyMatch(newPath -> newPath.equals(existingPicturePath));
-            if (!pathExistsInNewPaths) {
-                // Delete the old image file
-                String fileName = existingPicturePath.substring(existingPicturePath.lastIndexOf("/") + 1);
-                deleteImageFromServer(fileName);
+        // Check if existingPicturePaths is null before iterating
+        if (existingPicturePaths != null) {
+            // Compare existing picture paths with new picture paths
+            for (String existingPicturePath : existingPicturePaths) {
+                boolean pathExistsInNewPaths = Arrays.stream(newPicturePaths).anyMatch(newPath -> newPath.equals(existingPicturePath));
+                if (!pathExistsInNewPaths) {
+                    // Delete the old image file
+                    String fileName = existingPicturePath.substring(existingPicturePath.lastIndexOf("/") + 1);
+                    deleteImageFromServer(fileName);
+                }
             }
         }
     }
+
 
     private void deleteImageFromServer(String fileName) {
         String filePath = "C:/Users/tine/Desktop/Diplomska/DiplomskaSpringBoot/src/main/java/com/example/DiplomskaSpringBoot/uploads/" + fileName;

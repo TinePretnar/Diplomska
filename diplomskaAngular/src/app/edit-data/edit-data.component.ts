@@ -37,6 +37,7 @@ export class EditDataComponent implements OnInit, OnChanges {
   selectedImages: File[] = [];
   imagePreviews: SafeUrl[] = [];
   nepotrjen: boolean = false;
+  ocisceno: boolean = false;
 
   // Declare the markerData property as an @Input
   @Input() markerData: any;
@@ -49,6 +50,7 @@ export class EditDataComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.naziv = this.markerData.odlagalisce.naziv;
+    this.ocisceno = this.markerData.odlagalisce.ocisceno
     this.dostop = this.markerData.odlagalisce.dostop;
     this.oddaljenostOdCeste = this.markerData.odlagalisce.oddaljenostOdCeste;
     this.lega = this.markerData.odlagalisce.lega;
@@ -62,7 +64,7 @@ export class EditDataComponent implements OnInit, OnChanges {
     this.motornaVozila = this.markerData.odlagalisce.motornaVozila;
     this.salonitnePlosce = this.markerData.odlagalisce.salonitnePlosce;
     this.nevarniOdpadki = this.markerData.odlagalisce.nevarniOdpadki;
-    this.nevarnaTekocina = this.markerData.odlagalisce.nevarnaTekocina;
+    this.nevarnaTekocina = this.markerData.odlagalisce.nevarnaNeznanaTekocina;
     this.opisNevarnihOdpadkov = this.markerData.odlagalisce.opisNevarnihOdpadkov;
     this.odpadkiZakopani = this.markerData.odlagalisce.odpadkiZakopani;
     this.opombe = this.markerData.odlagalisce.opombe;
@@ -133,7 +135,7 @@ export class EditDataComponent implements OnInit, OnChanges {
         opombe: this.opombe,
         obcina: this.obcina,
         ocenaPomembnosti: this.ocenaPomembnosti,
-        ocisceno: false,
+        ocisceno: this.ocisceno,
         datumVnosaVRegister: this.markerData.odlagalisce.datumVnosaVRegister, 
         datumZadnjeSpremembe: currentDate,
         nepotrjen: this.nepotrjen,

@@ -12,6 +12,11 @@
     <input matInput type="password" name="password" [(ngModel)]="password" #passwordInput="ngModel" required placeholder="Password" />
   </mat-form-field>
 
+  <ng-container *ngIf="showCaptcha">
+    <re-captcha (resolved)="resolved($event)" siteKey="6LehImUnAAAAAGL9Yy2ix5gVBScv0nEbDg4UMUDK"></re-captcha>
+  </ng-container>
+  
+
     <!-- Display "Email already exists" error -->
     <mat-error *ngIf="emailInvalid">
         Elektronski naslov ni pravilen.
@@ -19,6 +24,10 @@
 
     <mat-error *ngIf="Failedlogin">
         Elektronski naslov ali geslo je napačno
+    </mat-error>
+
+    <mat-error *ngIf="notHuman">
+      Potrdite da ste človek.
     </mat-error>
     
 

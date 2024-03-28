@@ -17,7 +17,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) mapContainer: any;
   map: any;
   markers: any[] = []; // Array to store the markers
-  apiKey = 'AIzaSyDneQmiGalDt-h8nrJEyGNqX7FBNyPxSpc';
+  apiKey = 'AIzaSyAkV_bsKe6pw6Yy6yBD3ZUqnchLw8LSVHI';
   showOciscenoTrue = true;
   showOciscenoFalse = true;
   showNevarniOdpadki = true;

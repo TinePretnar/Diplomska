@@ -32,6 +32,7 @@ export class AddDataComponent implements OnInit, OnChanges {
   clickedCoordinates: { lat: number; lng: number } | null = null;
   selectedImages: File[] = [];
   imagePreviews: SafeUrl[] = [];
+  coordinatesNull: boolean = false;
 
   // Declare the markerData property as an @Input
   @Input() markerData: any;
@@ -91,6 +92,14 @@ export class AddDataComponent implements OnInit, OnChanges {
   // Method to save the new odlagališče
   saveData() {
     const currentDate = new Date();
+
+    // Check if clickedCoordinates is null or undefined
+    if (!this.clickedCoordinates) {
+      console.error('No coordinates selected.');
+      this.coordinatesNull = true;
+      return;
+    }
+
      // Convert clickedCoordinates to WKT format
      const wktCoordinates = this.clickedCoordinates
      ? `MULTIPOINT ((${this.clickedCoordinates.lng} ${this.clickedCoordinates.lat}))`

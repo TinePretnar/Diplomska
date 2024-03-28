@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private baseUrl = 'http://localhost:8080'; // Replace with your Spring Boot backend URL
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
   
-
   getOdlagalisca(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/odlagalisca`);
   }

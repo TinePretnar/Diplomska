@@ -143,6 +143,10 @@
       <input matInput type="number" placeholder="Ocena pomembnosti(1-10)" [(ngModel)]="ocenaPomembnosti">
     </mat-form-field>
   </div>
+
+  <mat-error *ngIf="coordinatesNull">
+    Izberite koordinate divjega odlagališča s klikom na zemljevid.
+  </mat-error>
   
   <!-- Buttons to save or cancel the new odlagališče -->
   <div class="button-container">
